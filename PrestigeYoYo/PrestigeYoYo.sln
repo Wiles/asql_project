@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{8E85204E-5543-4E63-95DF-1116DF0398FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D3F1E94C-E434-4B73-A1F0-D37D1A465133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDB", "src\Example.DB\PrestigeDB.csproj", "{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDBModels", "src\Example.DB.Models\PrestigeDBModels.csproj", "{35F11BBA-2012-4C70-943B-197E7F163454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeEF", "src\Endo.EF\PrestigeEF.csproj", "{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeRepositories", "src\Example.Repositories\PrestigeRepositories.csproj", "{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeServices", "src\Example.Services\PrestigeServices.csproj", "{D67EA789-E659-46A3-9683-10682D121713}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6514F6C8-C335-4567-BCD6-7AE88C7B6D7E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E85204E-5543-4E63-95DF-1116DF0398FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E85204E-5543-4E63-95DF-1116DF0398FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E85204E-5543-4E63-95DF-1116DF0398FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E85204E-5543-4E63-95DF-1116DF0398FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F11BBA-2012-4C70-943B-197E7F163454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F11BBA-2012-4C70-943B-197E7F163454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F11BBA-2012-4C70-943B-197E7F163454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F11BBA-2012-4C70-943B-197E7F163454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D67EA789-E659-46A3-9683-10682D121713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D67EA789-E659-46A3-9683-10682D121713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D67EA789-E659-46A3-9683-10682D121713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D67EA789-E659-46A3-9683-10682D121713}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B} = {D3F1E94C-E434-4B73-A1F0-D37D1A465133}
+		{35F11BBA-2012-4C70-943B-197E7F163454} = {D3F1E94C-E434-4B73-A1F0-D37D1A465133}
+		{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6} = {D3F1E94C-E434-4B73-A1F0-D37D1A465133}
+	EndGlobalSection
+EndGlobal
