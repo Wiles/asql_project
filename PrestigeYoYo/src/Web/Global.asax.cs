@@ -42,7 +42,7 @@ namespace Prestige
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}", // URL with parameters
-                new { controller = "Home", action = "Index" } // Parameter defaults
+                new { controller = "Report", action = "Index" } // Parameter defaults
             );
         }
 
