@@ -43,9 +43,10 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(565, 53);
+            this.btnStart.Location = new System.Drawing.Point(753, 65);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.Size = new System.Drawing.Size(100, 28);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start Read";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -54,16 +55,19 @@
             // lstQueueData
             // 
             this.lstQueueData.FormattingEnabled = true;
-            this.lstQueueData.Location = new System.Drawing.Point(12, 53);
+            this.lstQueueData.ItemHeight = 16;
+            this.lstQueueData.Location = new System.Drawing.Point(16, 65);
+            this.lstQueueData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstQueueData.Name = "lstQueueData";
-            this.lstQueueData.Size = new System.Drawing.Size(524, 342);
+            this.lstQueueData.Size = new System.Drawing.Size(697, 420);
             this.lstQueueData.TabIndex = 1;
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(565, 82);
+            this.btnStop.Location = new System.Drawing.Point(753, 101);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.Size = new System.Drawing.Size(100, 28);
             this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Stop Read";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -72,24 +76,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.Location = new System.Drawing.Point(16, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
+            this.label1.Size = new System.Drawing.Size(158, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "Message Queue Server";
             // 
             // txtQueueServer
             // 
-            this.txtQueueServer.Location = new System.Drawing.Point(151, 10);
+            this.txtQueueServer.Location = new System.Drawing.Point(201, 12);
+            this.txtQueueServer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtQueueServer.Name = "txtQueueServer";
-            this.txtQueueServer.Size = new System.Drawing.Size(173, 20);
+            this.txtQueueServer.Size = new System.Drawing.Size(229, 22);
             this.txtQueueServer.TabIndex = 5;
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(565, 219);
+            this.btnClear.Location = new System.Drawing.Point(753, 270);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.Size = new System.Drawing.Size(100, 28);
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "Clear List";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -98,17 +105,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(360, 13);
+            this.label2.Location = new System.Drawing.Point(480, 16);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(75, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Remaining";
             // 
             // txtRemaining
             // 
-            this.txtRemaining.Location = new System.Drawing.Point(436, 10);
+            this.txtRemaining.Location = new System.Drawing.Point(581, 12);
+            this.txtRemaining.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtRemaining.Name = "txtRemaining";
-            this.txtRemaining.Size = new System.Drawing.Size(100, 20);
+            this.txtRemaining.Size = new System.Drawing.Size(132, 22);
             this.txtRemaining.TabIndex = 8;
             this.txtRemaining.Text = "0";
             this.txtRemaining.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -116,18 +125,20 @@
             // chkCount
             // 
             this.chkCount.AutoSize = true;
-            this.chkCount.Location = new System.Drawing.Point(565, 257);
+            this.chkCount.Location = new System.Drawing.Point(753, 316);
+            this.chkCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkCount.Name = "chkCount";
-            this.chkCount.Size = new System.Drawing.Size(54, 17);
+            this.chkCount.Size = new System.Drawing.Size(67, 21);
             this.chkCount.TabIndex = 9;
             this.chkCount.Text = "Count";
             this.chkCount.UseVisualStyleBackColor = true;
             // 
             // btnSingleRead
             // 
-            this.btnSingleRead.Location = new System.Drawing.Point(565, 142);
+            this.btnSingleRead.Location = new System.Drawing.Point(753, 175);
+            this.btnSingleRead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSingleRead.Name = "btnSingleRead";
-            this.btnSingleRead.Size = new System.Drawing.Size(75, 23);
+            this.btnSingleRead.Size = new System.Drawing.Size(100, 28);
             this.btnSingleRead.TabIndex = 10;
             this.btnSingleRead.Text = "Single Read";
             this.btnSingleRead.UseVisualStyleBackColor = true;
@@ -135,9 +146,10 @@
             // 
             // btnPurgeQ
             // 
-            this.btnPurgeQ.Location = new System.Drawing.Point(565, 312);
+            this.btnPurgeQ.Location = new System.Drawing.Point(753, 384);
+            this.btnPurgeQ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPurgeQ.Name = "btnPurgeQ";
-            this.btnPurgeQ.Size = new System.Drawing.Size(75, 23);
+            this.btnPurgeQ.Size = new System.Drawing.Size(100, 28);
             this.btnPurgeQ.TabIndex = 11;
             this.btnPurgeQ.Text = "Purge Q";
             this.btnPurgeQ.UseVisualStyleBackColor = true;
@@ -145,9 +157,9 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 405);
+            this.ClientSize = new System.Drawing.Size(883, 498);
             this.Controls.Add(this.btnPurgeQ);
             this.Controls.Add(this.btnSingleRead);
             this.Controls.Add(this.chkCount);
@@ -159,6 +171,7 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lstQueueData);
             this.Controls.Add(this.btnStart);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmMain";
             this.Text = "Sample Queue Reader";
             this.Load += new System.EventHandler(this.frmMain_Load);
