@@ -50,7 +50,7 @@ namespace Prestige.Controllers
 
             var model = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductListModel>>(products);
 
-            ViewBag.Title = "Home!";
+            ViewBag.Title = "Reports";
             return View(model);
         }
     }

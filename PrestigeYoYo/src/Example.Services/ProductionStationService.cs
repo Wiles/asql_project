@@ -12,13 +12,13 @@ namespace Prestige.Services
     /// <summary>
     /// Service for managing Products.
     /// </summary>
-    public class ProductService : IProductService
+    public class ProductionStationService : IProductionStationService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductService"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public ProductService(IProductRepository repository)
+        public ProductionStationService(IProductionStationRepository repository)
         {
             if (repository == null)
             {
@@ -34,15 +34,15 @@ namespace Prestige.Services
         /// <value>
         /// The repository.
         /// </value>
-        private IProductRepository Repository { get; set; }
+        private IProductionStationRepository Repository { get; set; }
 
         /// <summary>
         /// Adds the specified product.
         /// </summary>
-        /// <param name="product">The product.</param>
-        public void Add(Product product)
+        /// <param name="station">The station.</param>
+        public void Add(ProductionStation station)
         {
-            this.Repository.Add(product);
+            this.Repository.Add(station);
             this.Repository.SaveChanges();
         }
 
@@ -50,7 +50,7 @@ namespace Prestige.Services
         /// Updates the specified product.
         /// </summary>
         /// <param name="product">The product.</param>
-        public void Update(Product product)
+        public void Update(ProductionStation station)
         {
             this.Repository.SaveChanges();
         }
@@ -59,9 +59,9 @@ namespace Prestige.Services
         /// Deletes the specified product.
         /// </summary>
         /// <param name="product">The product.</param>
-        public void Delete(Product product)
+        public void Delete(ProductionStation station)
         {
-            this.Repository.Delete(product);
+            this.Repository.Delete(station);
             this.Repository.SaveChanges();
         }
 
@@ -69,9 +69,10 @@ namespace Prestige.Services
         /// Lists the products.
         /// </summary>
         /// <returns></returns>
-        public IQueryable<Product> List()
+        public IQueryable<ProductionStation> List()
         {
             return this.Repository;
         }
     }
 }
+

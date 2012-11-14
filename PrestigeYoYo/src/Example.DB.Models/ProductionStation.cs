@@ -8,9 +8,9 @@ namespace Prestige.DB.Models
     using Prestige.EF;
 
     /// <summary>
-    /// Represents a Product in the database.
+    /// Represents an Inspection Station in the database.
     /// </summary>
-    public class Product : IModelBase
+    public class ProductionStation : IModelBase
     {
         /// <summary>
         /// Gets or sets the id.
@@ -21,14 +21,6 @@ namespace Prestige.DB.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string SKU { get; set; }
-
-        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         /// <value>
@@ -37,11 +29,11 @@ namespace Prestige.DB.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the colour.
+        /// Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The colour.
+        /// The identifier.
         /// </value>
-        public string Colour { get; set; }
+        public string Identifier { get; set; }
     }
 }

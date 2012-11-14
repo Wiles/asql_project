@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InspectionStation.cs" />
+    <Compile Include="ProductionStage.cs" />
+    <Compile Include="ProductionStation.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductFlawType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -47,7 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IProductionStationService.cs" />
     <Compile Include="Contracts\IProductService.cs" />
+    <Compile Include="Contracts\IProductionStageService.cs" />
+    <Compile Include="Contracts\IProductFlawService.cs" />
+    <Compile Include="ProductFlawService.cs" />
+    <Compile Include="ProductionStageService.cs" />
+    <Compile Include="ProductionStationService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

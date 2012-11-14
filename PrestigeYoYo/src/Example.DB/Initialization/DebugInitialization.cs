@@ -10,7 +10,7 @@ namespace Prestige.DB
     using Prestige.DB.Models;
 
     /// <summary>
-    /// Database Context for Prestige.
+    /// Debug Database Initialization for Prestige.
     /// </summary>
     public class DebugInitialization : DropCreateDatabaseIfModelChanges<PrestigeContext>
     {
@@ -65,92 +65,111 @@ namespace Prestige.DB
                 }
             };
 
-            var moldInspection = new InspectionStation()
-                {
-                    StationNumber = 1,
-                    Description = "Mold Inspection"
-                };
-
-            var paintInspection = new InspectionStation()
-                {
-                    StationNumber = 2,
-                    Description = "Paint Inspection"
-                };
-
-            var assemblyInspection = new InspectionStation()
-                {
-                    StationNumber = 3,
-                    Description = "Assembly Inspection"
-                };
-
-            this.Stations = new Collection<InspectionStation>()
+            this.Stations = new Collection<ProductionStation>()
             {
-                moldInspection,
-                paintInspection,
-                assemblyInspection
+                new ProductionStation()
+                {
+                    Description = "Injection Mold",
+                    Identifier = "MOLD"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection Station #1",
+                    Identifier = "INSPECTION_1"
+                },
+                new ProductionStation()
+                {
+                    Description = "Paint",
+                    Identifier = "PAINT"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection Station #2",
+                    Identifier = "INSPECTION_2"
+                },
+                new ProductionStation()
+                {
+                    Description = "Assembly",
+                    Identifier = "ASSEMBLY"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection Station #3",
+                    Identifier = "INSPECTION_3"
+                },
+                new ProductionStation()
+                {
+                    Description = "Package",
+                    Identifier = "PACKAGE"
+                },
+                new ProductionStation()
+                {
+                    Description = "Scrap",
+                    Identifier = "SCRAP"
+                }
             };
 
             this.Flaws = new Collection<ProductFlawType>()
             {
                 new ProductFlawType()
                 {
-                    InspectionLocation = moldInspection,
                     Decision = "Reject",
-                    Reason = "Inconsistent thickness"
+                    Reason = "Inconsistent thickness",
+                    Identifier = "INCONSISTENT_THICKNESS"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = moldInspection,
                     Decision = "Reject",
-                    Reason = "Pitting"
+                    Reason = "Pitting",
+                    Identifier = "PITTING"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = moldInspection,
                     Decision = "Reject",
-                    Reason = "Warping"
+                    Reason = "Warping",
+                    Identifier = "WARPING"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = paintInspection,
                     Decision = "Reject",
-                    Reason = "Primer defect"
+                    Reason = "Primer defect",
+                    Identifier = "PRIMER_DEFECT"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = paintInspection,
                     Decision = "Rework",
-                    Reason = "Drip mark"
+                    Reason = "Drip mark",
+                    Identifier = "DRIP_MARK"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = paintInspection,
                     Decision = "Rework",
-                    Reason = "Final coat flaw"
+                    Reason = "Final coat flaw",
+                    Identifier = "FINAL_COAT_FLAW"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = assemblyInspection,
                     Decision = "Reject",
-                    Reason = "Broken shell"
+                    Reason = "Broken shell",
+                    Identifier = "BROKEN_SHELL"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = assemblyInspection,
                     Decision = "Rework",
-                    Reason = "Broken Axle"
+                    Reason = "Broken Axle",
+                    Identifier = "BROKEN_AXLE"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = assemblyInspection,
                     Decision = "Rework",
-                    Reason = "Tangled string"
+                    Reason = "Tangled string",
+                    Identifier = "TANGLED_STRING"
                 },
                 new ProductFlawType()
                 {
-                    InspectionLocation = assemblyInspection,
                     Decision = "Rework",
-                    Reason = "Final coat flaw"
+                    Reason = "Final coat flaw",
+                    Identifier = "FINAL_COAT_FLAW"
                 }
             };
         }
@@ -163,8 +182,20 @@ namespace Prestige.DB
         /// </value>
         private ICollection<Product> Products { get; set; }
 
-        private ICollection<InspectionStation> Stations { get; set; }
+        /// <summary>
+        /// Gets or sets the stations.
+        /// </summary>
+        /// <value>
+        /// The stations.
+        /// </value>
+        private ICollection<ProductionStation> Stations { get; set; }
 
+        /// <summary>
+        /// Gets or sets the flaws.
+        /// </summary>
+        /// <value>
+        /// The flaws.
+        /// </value>
         private ICollection<ProductFlawType> Flaws { get; set; }
 
         /// <summary>
@@ -175,6 +206,7 @@ namespace Prestige.DB
         {
             Seed(context, this.Products);
             Seed(context, this.Stations);
+            Seed(context, this.Flaws);
         }
 
         /// <summary>

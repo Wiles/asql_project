@@ -9,16 +9,14 @@ namespace Prestige.Services
     using Prestige.DB.Models;
     using Prestige.Repositories;
 
-    /// <summary>
-    /// Service for managing Products.
-    /// </summary>
-    public class ProductService : IProductService
+    public class ProductionStageService : IProductionStageService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// Initializes a new instance of the
+        /// <see cref="ProductionStageService" /> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public ProductService(IProductRepository repository)
+        public ProductionStageService(IProductionStageRepository repository)
         {
             if (repository == null)
             {
@@ -34,23 +32,23 @@ namespace Prestige.Services
         /// <value>
         /// The repository.
         /// </value>
-        private IProductRepository Repository { get; set; }
+        private IProductionStageRepository Repository { get; set; }
 
         /// <summary>
         /// Adds the specified product.
         /// </summary>
-        /// <param name="product">The product.</param>
-        public void Add(Product product)
+        /// <param name="stage">The stage.</param>
+        public void Add(ProductionStage stage)
         {
-            this.Repository.Add(product);
+            this.Repository.Add(stage);
             this.Repository.SaveChanges();
         }
 
         /// <summary>
         /// Updates the specified product.
         /// </summary>
-        /// <param name="product">The product.</param>
-        public void Update(Product product)
+        /// <param name="stage">The stage.</param>
+        public void Update(ProductionStage stage)
         {
             this.Repository.SaveChanges();
         }
@@ -58,18 +56,18 @@ namespace Prestige.Services
         /// <summary>
         /// Deletes the specified product.
         /// </summary>
-        /// <param name="product">The product.</param>
-        public void Delete(Product product)
+        /// <param name="stage">The stage.</param>
+        public void Delete(ProductionStage stage)
         {
-            this.Repository.Delete(product);
+            this.Repository.Delete(stage);
             this.Repository.SaveChanges();
         }
 
         /// <summary>
         /// Lists the products.
         /// </summary>
-        /// <returns></returns>
-        public IQueryable<Product> List()
+        /// <returns>An IQueryable of Production Stage Results.</returns>
+        public IQueryable<ProductionStage> List()
         {
             return this.Repository;
         }

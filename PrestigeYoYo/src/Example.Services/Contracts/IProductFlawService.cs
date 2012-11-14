@@ -10,30 +10,30 @@ namespace Prestige.Services
     /// <summary>
     /// Interface for managing Products.
     /// </summary>
-    public interface IProductService
+    public interface IProductFlawService
     {
         /// <summary>
-        /// Adds the specified product.
+        /// Adds the specified flaw.
         /// </summary>
         /// <param name="product">The product.</param>
-        void Add(Product product);
+        void Add(ProductFlawType flaw);
 
         /// <summary>
-        /// Updates the specified product.
+        /// Updates the specified flaw.
         /// </summary>
         /// <param name="product">The product.</param>
-        void Update(Product product);
+        void Update(ProductFlawType flaw);
 
         /// <summary>
-        /// Deletes the specified product.
+        /// Deletes the specified flaw.
         /// </summary>
         /// <param name="product">The product.</param>
-        void Delete(Product product);
+        void Delete(ProductFlawType flaw);
 
         /// <summary>
-        /// Lists the products.
+        /// Lists the flaws.
         /// </summary>
         /// <returns></returns>
-        IQueryable<Product> List();
+        IQueryable<ProductFlawType> List();
     }
 }

@@ -1,19 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Prestige.EF;
+﻿///
+///
+///
 
 namespace Prestige.DB.Models
 {
+    using System;
+    using Prestige.EF;
+
+    /// <summary>
+    /// Represents a Product Flaw Type.
+    /// </summary>
     public class ProductFlawType : IModelBase
     {
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>
+        /// The id.
+        /// </value>
         public Guid Id { get; set; }
 
-        public InspectionStation InspectionLocation { get; set; }
+        /// <summary>
+        /// Gets or sets the inspection location.
+        /// </summary>
+        /// <value>
+        /// The inspection location.
+        /// </value>
+        public ProductionStation InspectionLocation { get; set; }
 
+        /// <summary>
+        /// Gets or sets the decision.
+        /// </summary>
+        /// <value>
+        /// The decision.
+        /// </value>
         public string Decision { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason.
+        /// </summary>
+        /// <value>
+        /// The reason.
+        /// </value>
         public string Reason { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public string Identifier { get; set; }
     }
 }

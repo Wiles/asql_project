@@ -1,4 +1,4 @@
-﻿/// ProductRepository.cs
+﻿/// ProductionStationRepository.cs
 /// Thomas Kempton 2012
 ///
 
@@ -11,13 +11,13 @@ namespace Prestige.Repositories
     /// <summary>
     /// Repository for accessing Products in the Database.
     /// </summary>
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository, IRepository<Product>
+    public class ProductionStationRepository : RepositoryBase<ProductionStation>, IProductionStationRepository, IRepository<ProductionStation>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductRepository" /> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        public ProductRepository(DbContext context) : base(context)
+        public ProductionStationRepository(DbContext context) : base(context)
         {
         }
     }

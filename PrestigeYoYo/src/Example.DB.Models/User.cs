@@ -5,11 +5,11 @@
 namespace Prestige.DB.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Prestige.EF;
 
+    /// <summary>
+    /// Represents a user in the database.
+    /// </summary>
     public class User : IModelBase
     {
         /// <summary>
