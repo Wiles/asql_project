@@ -69,13 +69,28 @@ namespace Prestige.DB
             {
                 new ProductionStation()
                 {
-                    Description = "Injection Mold",
+                    Description = "Mold process",
                     Identifier = "MOLD"
                 },
                 new ProductionStation()
                 {
-                    Description = "Inspection Station #1",
+                    Description = "Inspection station 1 queue",
+                    Identifier = "QUEUE_INSPECTION_1"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection station 1",
                     Identifier = "INSPECTION_1"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection station 1 scrap",
+                    Identifier = "INSPECTION_1_SCRAP"
+                },
+                new ProductionStation()
+                {
+                    Description = "Paint process queue",
+                    Identifier = "QUEUE_PAINT"
                 },
                 new ProductionStation()
                 {
@@ -84,28 +99,58 @@ namespace Prestige.DB
                 },
                 new ProductionStation()
                 {
-                    Description = "Inspection Station #2",
+                    Description = "Inspection station 2 queue",
+                    Identifier = "QUEUE_INSPECTION_2"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection station 2",
                     Identifier = "INSPECTION_2"
                 },
                 new ProductionStation()
                 {
-                    Description = "Assembly",
+                    Description = "Inspection station 2 rework",
+                    Identifier = "INSPECTION_2_REWORK"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection station 2 scrap",
+                    Identifier = "INSPECTION_2_SCRAP"
+                },
+                new ProductionStation()
+                {
+                    Description = "Assembly process queue",
+                    Identifier = "QUEUE_ASSEMBLY"
+                },
+                new ProductionStation()
+                {
+                    Description = "Assembly process",
                     Identifier = "ASSEMBLY"
                 },
                 new ProductionStation()
                 {
-                    Description = "Inspection Station #3",
+                    Description = "Inspection station 3 queue",
+                    Identifier = "QUEUE_INSPECTION_3"
+                },
+                new ProductionStation()
+                {
+                    Description = "Inspection station 3",
                     Identifier = "INSPECTION_3"
                 },
                 new ProductionStation()
                 {
-                    Description = "Package",
-                    Identifier = "PACKAGE"
+                    Description = "Inspection station 3 rework",
+                    Identifier = "INSPECTION_3_REWORK"
                 },
                 new ProductionStation()
                 {
-                    Description = "Scrap",
-                    Identifier = "SCRAP"
+                    Description = "Inspection station 3 scrap",
+                    Identifier = "INSPECTION_3_SCRAP"
+                },
+                new ProductionStation()
+                {
+                    Description = "Packaging process",
+                    Identifier = "PACKAGE"
                 }
             };
 
