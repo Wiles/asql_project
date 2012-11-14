@@ -1,13 +1,9 @@
-﻿/// UrlHelper.cs
-/// Thomas Kempton 2012
-///
+﻿using System;
+using System.Text;
+using System.Web.Mvc;
 
 namespace Prestige
 {
-    using System;
-    using System.Text;
-    using System.Web.Mvc;
-
     public static class UrlHelperExtensions
     {
         /// <summary>
@@ -48,7 +44,7 @@ namespace Prestige
             StringBuilder sb = new StringBuilder();
             foreach (string script in scripts)
             {
-                sb.Append(string.Format("<link href='{0}' rel='stylesheet' type='text/css' />", url.Content(script)));
+                sb.Append(string.Format("<script src='{0}' type='text/javascript'></script>", url.Content(script)));
             }
 
             return MvcHtmlString.Create(sb.ToString());

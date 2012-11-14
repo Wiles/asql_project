@@ -20,8 +20,20 @@ namespace Prestige.ViewModels
         /// </value>
         public string SKU { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the colour.
+        /// </summary>
+        /// <value>
+        /// The colour.
+        /// </value>
         public string Colour { get; set; }
     }
 }

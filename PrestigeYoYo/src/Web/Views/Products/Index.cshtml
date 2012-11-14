@@ -1,0 +1,66 @@
+﻿@using Prestige.ViewModels;
+
+<script type="text/javascript">
+    // the url to make the Ajax calls
+    // http://www.trirand.com/jqgridwiki/doku.php?id=wiki:jqgriddocs
+    var jqDataUrl = "@Url.Action("Data", "Products")";
+    $(document).ready(function () {
+
+        // Set up the jquery grid
+        $("#jqTable").jqGrid({
+            // Ajax related configurations
+            url: jqDataUrl,
+            datatype: "json",
+            mtype: "POST",
+
+            // Specify the column names
+            colNames: ["Id", "SKU", "Description", "Colour"],
+
+            // Configure the columns
+            colModel:
+            [
+            { name: "Id", index: "Id", hidden: true },
+            { name: "SKU", index: "SKU", align: "left" },
+            { name: "Description", index: "Description", align: "left" },
+            { name: "Colour", index: "Colour", align: "left" }
+            ],
+
+            // Grid total width and height
+            width: 1500,
+            height: 'auto',
+
+            // Paging
+            toppager: false,
+            pager: $("#jqTablePager"),
+            rowNum: 10,
+            rowList: [5, 10, 15, 25],
+            viewrecords: true, // Specify if "total number of records" is displayed
+
+            // Default sorting
+            sortname: "SKU",
+            sortorder: "asc",
+
+            onSelectRow: function (id) {
+                if (id) {
+                    var row = $("#jqTable").getRowData(id);
+                    window.location.href = "@Url.Action("Edit", "Products")/" + row["Id"];
+                }
+            }
+        }).navGrid("#jqTablePager",
+            { refresh: true, add: false, edit: true, del: false },
+                {}, // settings for edit
+                {}, // settings for add
+                {}, // settings for delete
+                {sopt: ["cn"]} // Search options. Some options can be set on column level
+        );
+
+        $("#jqTablePager_left").css('width', '');
+        $("#jqTablePager_center").css('width', '');
+        $("#jqTablePager_right").css('width', '');
+    });
+</script>
+
+<div>
+    <table id="jqTable" class="scroll"></table>
+    <div id="jqTablePager"></div>
+</div>

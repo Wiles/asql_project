@@ -46,12 +46,8 @@ namespace Prestige.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var products = this.ProductService.List().ToArray();
-
-            var model = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductListModel>>(products);
-
             ViewBag.Title = "Reports";
-            return View(model);
+            return View();
         }
     }
 }

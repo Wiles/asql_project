@@ -4,9 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    @Url.StyleSheet("~/Content/Prestige.css")
-    @Url.Script("~/Scripts/jquery-1.7.1.min.js",
-                "~/Scripts/modernizr-1.7.min.js")
+    @Url.StyleSheet("~/Content/Prestige.css",
+                    "~/Content/jquery-ui-1.9.1.custom.min.css",
+                    "~/Content/ui.jqgrid.css")
+    @Url.Script("~/Scripts/jquery-1.7.2.min.js",
+                "~/Scripts/modernizr-1.7.min.js",
+                "~/Scripts/grid.locale-en.js",
+                "~/Scripts/jquery.jqGrid.src.js")
 
     @RenderSection("head", false)
 </head>
@@ -21,6 +25,7 @@
         <nav>
             <ul id="menu">
                 <li>@Html.ActionLink("Reports", "Index", "Report")</li>
+                <li>@Html.ActionLink("Products", "Index", "Products")</li>
                 <li>@Html.ActionLink("Administration", "Index", "Account")</li>
             </ul>
         </nav>

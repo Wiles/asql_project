@@ -41,8 +41,8 @@ namespace Prestige
 
             routes.MapRoute(
                 "Default", // Route name
-                "{controller}/{action}", // URL with parameters
-                new { controller = "Report", action = "Index" } // Parameter defaults
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Report", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 

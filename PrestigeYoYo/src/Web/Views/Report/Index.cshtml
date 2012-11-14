@@ -1,21 +1,4 @@
 ﻿@using Prestige.ViewModels;
-@model IEnumerable<ProductListModel>
-           
-<style type="text/css">
-    td
-    {
-        min-width:120px;
-    }
-</style>
 
-<table>
-    <tr>
-        <td><strong>SKU</strong></td>
-        <td><strong>Description</strong></td>
-        <td><strong>Colour</strong></td>
-    </tr>
-@foreach (var product in Model.OrderBy(p => p.SKU))
-{
-    @Html.Partial("Product", product)
-}
-</table>
+
+<h2>Index</h2>
