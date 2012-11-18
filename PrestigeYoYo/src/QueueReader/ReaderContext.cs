@@ -13,6 +13,7 @@ using Prestige.Repositories;
 using Prestige.DB;
 using Prestige.DB.Models;
 using System.Data.Entity;
+using System.Threading;
 
 namespace QueueReader
 {
@@ -23,6 +24,24 @@ namespace QueueReader
         /// <see cref="ReaderContext" /> class.
         /// </summary>
         public ReaderContext()
+        {
+            this.InitializeServices();
+            this.InitializeIcon();
+
+            this.Queue = new MessageQueue(
+                        ConfigurationManager.AppSettings["QueueName"]);
+            this.Queue.Formatter = new ActiveXMessageFormatter();
+            this.Queue.MessageReadPropertyFilter.LookupId = true;
+            this.Queue.ReceiveCompleted += msmq_ReceiveCompleted;
+
+            this.IsRunning = true;
+            this.Queue.BeginReceive();
+        }
+
+        /// <summary>
+        /// Initializes the services.
+        /// </summary>
+        public void InitializeServices()
         {
 #if DEBUG
             Database.SetInitializer(new DebugInitialization());
@@ -37,16 +56,29 @@ namespace QueueReader
                             new ProductFlawRepository(dbContext));
             this.StationService = new ProductionStationService(
                             new ProductionStationRepository(dbContext));
-
-            this.Queue = new MessageQueue(
-                        ConfigurationManager.AppSettings["QueueName"]);
-            this.Queue.Formatter = new ActiveXMessageFormatter();
-            this.Queue.MessageReadPropertyFilter.LookupId = true;
-            this.Queue.ReceiveCompleted +=
-                    new ReceiveCompletedEventHandler(msmq_ReceiveCompleted);
-            this.Queue.BeginReceive();
         }
 
+        /// <summary>
+        /// Initializes the icon.
+        /// </summary>
+        public void InitializeIcon()
+        {
+            var container = new Container();
+            this.Icon = new NotifyIcon(container);
+            this.MenuStart = new MenuItem("Start", Start_Click);
+            this.MenuStart.Enabled = false;
+            this.MenuStop = new MenuItem("Stop", Stop_Click);
+            MenuItem close = new MenuItem("Close", Close_Click);
+            this.Icon.ContextMenu = new ContextMenu();
+            this.Icon.ContextMenu.MenuItems.Add(this.MenuStart);
+            this.Icon.ContextMenu.MenuItems.Add(this.MenuStop);
+            this.Icon.ContextMenu.MenuItems.Add("-");
+            this.Icon.ContextMenu.MenuItems.Add(close);
+            this.Icon.Icon = System.Drawing.SystemIcons.Shield;
+            this.Icon.Text = this.DisplayText + " - Running...";
+            this.Icon.Visible = true;
+        }
+        
         /// <summary>
         /// Gets or sets the service.
         /// </summary>
@@ -80,12 +112,84 @@ namespace QueueReader
         public NotifyIcon Icon { get; private set; }
 
         /// <summary>
+        /// THe display text.
+        /// </summary>
+        private string DisplayText = "Prestige Queue Reader";
+
+        /// <summary>
+        /// Gets or sets the menu start.
+        /// </summary>
+        /// <value>
+        /// The menu start.
+        /// </value>
+        public MenuItem MenuStart { get; set; }
+
+        /// <summary>
+        /// Gets or sets the menu stop.
+        /// </summary>
+        /// <value>
+        /// The menu stop.
+        /// </value>
+        public MenuItem MenuStop { get; set; }
+
+        /// <summary>
         /// Gets the queue.
         /// </summary>
         /// <value>
         /// The queue.
         /// </value>
         public MessageQueue Queue { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is running.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
+        /// </value>
+        private bool IsRunning { get; set; }
+
+        /// <summary>
+        /// Handles the Click event of the Start control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        ///   The <see cref="EventArgs" /> instance containing the event data.
+        /// </param>
+        private void Start_Click(object sender, EventArgs e)
+        {
+            this.MenuStart.Enabled = false;
+            this.MenuStop.Enabled = true;
+            this.Icon.Text = this.DisplayText + " - Running...";
+            this.IsRunning = true;
+            this.Queue.BeginReceive();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Stop control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        ///   The <see cref="EventArgs" /> instance containing the event data.
+        /// </param>
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            this.MenuStart.Enabled = true;
+            this.MenuStop.Enabled = false;
+            this.Icon.Text = this.DisplayText + " - Stopped";
+            this.IsRunning = false;
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Close control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        ///   The <see cref="EventArgs" /> instance containing the event data.
+        /// </param>
+        private void Close_Click(object sender, EventArgs e)
+        {
+            this.ExitThread();
+        }
 
         /// <summary>
         /// Handles the ReceiveCompleted event of the msmq control.
@@ -95,15 +199,12 @@ namespace QueueReader
         ///   The <see cref="ReceiveCompletedEventArgs" />
         ///   instance containing the event data.
         /// </param>
-        void msmq_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
+        private void msmq_ReceiveCompleted(
+                        object sender,
+                        ReceiveCompletedEventArgs e)
         {
             var str = e.Message.Body.ToString();
-            Debug.WriteLine(str);
             var split = str.Split(",".ToCharArray());
-            if (split[4] != "")
-            {
-                Debug.WriteLine("{0} - {1}", split[3], split[4]);
-            }
 
             // WorkArea,
             // 21f27817-f307-49f9-a826-5f8d772cdfdf,
@@ -122,26 +223,23 @@ namespace QueueReader
             stage.ProductionId = Guid.Parse(split[1]);
 
             var stationId = split[3];
-            var station = this.StationService.List().FirstOrDefault(s => s.Identifier == stationId);
-
-            if (station == null)
-            {
-                if (split[3].Contains("SCRAP"))
-                {
-                    station = this.StationService.List().FirstOrDefault(s => s.Identifier == "SCRAP");
-                }
-            }
+            var station = this.StationService.List().FirstOrDefault(
+                                            s => s.Identifier == stationId);
 
             stage.Station = station;
 
             if (split[4].Length > 0)
             {
                 var flawId = split[4];
-                stage.ProductFlaw = this.FlawService.List().FirstOrDefault(f => f.Identifier == flawId);
+                stage.ProductFlaw = this.FlawService.List().FirstOrDefault(
+                                            f => f.Identifier == flawId);
             }
 
             this.StageService.Add(stage);
-            this.Queue.BeginReceive();
+            if (this.IsRunning)
+            {
+                this.Queue.BeginReceive();
+            }
         }
     }
 }
