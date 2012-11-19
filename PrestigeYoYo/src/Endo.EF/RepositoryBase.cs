@@ -28,7 +28,7 @@ namespace Prestige.EF
         public RepositoryBase(DbContext context)
         {
             this.Context = context;
-            this.ObjectContext =
+                this.ObjectContext =
                     (context as IObjectContextAdapter).ObjectContext;
         }
 

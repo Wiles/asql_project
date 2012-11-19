@@ -19,6 +19,15 @@ namespace Prestige.DB
         /// </summary>
         public DebugInitialization()
         {
+            this.Users = new Collection<User>()
+            {
+                new User()
+                {
+                    UserName = "root",
+                    Password = "63a9f0ea7bb98050796b649e85481845"
+                }
+            };
+
             this.Products = new Collection<Product>()
             {
                 new Product()
@@ -244,11 +253,20 @@ namespace Prestige.DB
         private ICollection<ProductFlawType> Flaws { get; set; }
 
         /// <summary>
+        /// Gets or sets the users.
+        /// </summary>
+        /// <value>
+        /// The users.
+        /// </value>
+        private ICollection<User> Users { get; set; }
+
+        /// <summary>
         /// Seeds the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         protected override void Seed(PrestigeContext context)
         {
+            Seed(context, this.Users);
             Seed(context, this.Products);
             Seed(context, this.Stations);
             Seed(context, this.Flaws);

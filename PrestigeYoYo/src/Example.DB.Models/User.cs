@@ -27,5 +27,13 @@ namespace Prestige.DB.Models
         /// The user name.
         /// </value>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password hash.
+        /// </summary>
+        /// <value>
+        /// The password hash.
+        /// </value>
+        public string Password { get; set; }
     }
 }

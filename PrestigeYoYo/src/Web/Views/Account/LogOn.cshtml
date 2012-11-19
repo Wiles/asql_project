@@ -1,0 +1,26 @@
+﻿@model string
+@{
+    ViewBag.Title = "LogOn";
+}
+
+<h2>Log On</h2>
+@using (Html.BeginForm())
+{
+<div style="border:2px solid black;padding:5px 5px 5px 5px;display:inline-block;">
+    <div style="margin:5px 5px 5px 5px;">
+        <span style="width:100px;display:inline-block;">Username:</span>
+        <input type="text" value="@Model" name="username" />
+    </div>
+
+    <div style="margin:5px 5px 5px 5px;">
+        <span style="width:100px;display:inline-block;">Password:</span>
+        <input type="password" name="password" />
+    </div>
+
+    <div style="margin:5px 5px 5px 5px;">
+        <span style="width:100px;display:inline-block;"></span>
+        <input type="checkbox" name="remember" /><span>Remember Me</span>
+    </div>
+    <button>Log On</button>
+</div>
+}

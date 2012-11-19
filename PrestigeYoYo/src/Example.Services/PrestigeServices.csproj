@@ -47,12 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="Contracts\IProductionStationService.cs" />
     <Compile Include="Contracts\IProductService.cs" />
     <Compile Include="Contracts\IProductionStageService.cs" />
     <Compile Include="Contracts\IProductFlawService.cs" />
     <Compile Include="Contracts\IScheduleService.cs" />
-    <Compile Include="IProductionEntryService.cs" />
+    <Compile Include="Contracts\IProductionEntryService.cs" />
     <Compile Include="ProductFlawService.cs" />
     <Compile Include="ProductionStageService.cs" />
     <Compile Include="ProductionStationService.cs" />

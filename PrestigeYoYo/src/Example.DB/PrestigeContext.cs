@@ -40,6 +40,7 @@ namespace Prestige.DB
             modelBuilder.Configurations.Add(new ProductionStageConfiguration());
             modelBuilder.Configurations.Add(new ScheduleConfiguration());
             modelBuilder.Configurations.Add(new ProductionEntryConfiguration());
+            modelBuilder.Configurations.Add(new UserConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
