@@ -12,7 +12,7 @@ namespace Prestige.Repositories
     using Prestige.DB.Models;
     using Prestige.EF;
 
-    public class ProductionStageRepository : RepositoryBase<ProductionStage>, IProductionStageRepository, IRepository<ProductionStage>
+    public class ScheduleRepository : RepositoryBase<Schedule>, IScheduleRepository, IRepository<Schedule>
     {
         /// <summary>
         /// Properties to include.
@@ -24,21 +24,20 @@ namespace Prestige.Repositories
         /// </summary>
         private IEnumerable<Type> typesToInclude = new List<Type>()
         {
-            typeof(ProductionStation),
-            typeof(ProductFlawType)
+            typeof(Product)
         };
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="ProductionStageRepository" /> class.
+        /// <see cref="ScheduleRepository" /> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        public ProductionStageRepository(DbContext context)
+        public ScheduleRepository(DbContext context)
             : base(context)
         {
             propertiesToInclude = new List<string>();
 
-            foreach (var property in typeof(Product).GetProperties())
+            foreach (var property in typeof(Schedule).GetProperties())
             {
                 foreach (var type in typesToInclude)
                 {
@@ -57,7 +56,7 @@ namespace Prestige.Repositories
         {
             get
             {
-                var query = this.Context.Set<ProductionStage>() as IQueryable<ProductionStage>;
+                var query = this.Context.Set<Schedule>() as IQueryable<Schedule>;
                 foreach (var property in propertiesToInclude)
                 {
                     query = query.Include(property);
@@ -65,5 +64,6 @@ namespace Prestige.Repositories
                 return query.Expression;
             }
         }
+
     }
 }

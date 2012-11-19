@@ -36,10 +36,9 @@ namespace Prestige.DB
 
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new ProductFlawConfiguration());
-            modelBuilder.Configurations.Add(
-                        new ProductionStationConfiguration());
-            modelBuilder.Configurations.Add(
-                        new ProductionStageConfiguration());
+            modelBuilder.Configurations.Add(new ProductionStationConfiguration());
+            modelBuilder.Configurations.Add(new ProductionStageConfiguration());
+            modelBuilder.Configurations.Add(new ScheduleConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

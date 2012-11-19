@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Prestige.DB;
-using Prestige.Repositories;
-using Ninject.Modules;
-using System.Data.Entity;
-using Ninject.Web.Common;
+﻿///
+///
+///
 
 namespace Prestige.Web
 {
+    using Ninject.Modules;
+    using Prestige.Repositories;
+
     /// <summary>
     /// Module for injecting repository classes.
     /// </summary>
@@ -21,6 +18,7 @@ namespace Prestige.Web
         public override void Load()
         {
             Bind<IProductRepository>().To<ProductRepository>();
+            Bind<IScheduleRepository>().To<ScheduleRepository>();
         }
     }
 }
