@@ -14,6 +14,7 @@ using Prestige.DB;
 using Prestige.DB.Models;
 using System.Data.Entity;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace QueueReader
 {
@@ -50,6 +51,10 @@ namespace QueueReader
 #endif
 
             var dbContext = new PrestigeContext("Prestige");
+            this.ProductionEntryService = new ProductionEntryService(
+                            new ProductionEntryRepository(dbContext));
+            this.ScheduleService = new ScheduleService(
+                            new ScheduleRepository(dbContext));
             this.StageService = new ProductionStageService(
                             new ProductionStageRepository(dbContext));
             this.FlawService = new ProductFlawService(
@@ -78,6 +83,22 @@ namespace QueueReader
             this.Icon.Text = this.DisplayText + " - Running...";
             this.Icon.Visible = true;
         }
+
+        /// <summary>
+        /// Gets or sets the production entry service.
+        /// </summary>
+        /// <value>
+        /// The production entry service.
+        /// </value>
+        private IProductionEntryService ProductionEntryService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the schedule service.
+        /// </summary>
+        /// <value>
+        /// The schedule service.
+        /// </value>
+        private IScheduleService ScheduleService { get; set; }
         
         /// <summary>
         /// Gets or sets the service.
@@ -213,14 +234,32 @@ namespace QueueReader
             // INCONSISTENT_THICKNESS,
             // 11/12/2012 1:17:35 PM
 
+            Guid id = Guid.Parse(split[1]);
+            var timestamp = DateTime.Parse(split[5]);
+            var line = split[2].Substring(4);
+            var lineNumber = int.Parse(line);
+
+            var entry = this.ProductionEntryService.List().FirstOrDefault(
+                            p => p.Id == id);
+
+            if (entry == null)
+            {
+                var schedule = this.ScheduleService.GetByTimestamp(timestamp);
+                entry = new ProductionEntry()
+                {
+                    Id = id,
+                    Product = schedule == null ? null : schedule.Product,
+                    Stages = new Collection<ProductionStage>()
+                };
+
+                this.ProductionEntryService.Add(entry);
+            }
+
             var stage = new ProductionStage();
             stage.WorkArea = split[0];
-            stage.TimeStamp = DateTime.Parse(split[5]);
-
-            var line = split[2].Substring(4);
-            stage.LineNumber = int.Parse(line);
-
-            stage.ProductionId = Guid.Parse(split[1]);
+            stage.TimeStamp = timestamp;
+            stage.LineNumber = lineNumber;
+            stage.ProductionEntry = entry;
 
             var stationId = split[3];
             var station = this.StationService.List().FirstOrDefault(
@@ -235,7 +274,10 @@ namespace QueueReader
                                             f => f.Identifier == flawId);
             }
 
+            entry.Stages.Add(stage);
+            this.ProductionEntryService.Update(entry);
             this.StageService.Add(stage);
+
             if (this.IsRunning)
             {
                 this.Queue.BeginReceive();

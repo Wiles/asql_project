@@ -52,6 +52,7 @@
     <Compile Include="Configuration\ProductionStationConfiguration.cs" />
     <Compile Include="Configuration\ProductConfiguration.cs" />
     <Compile Include="Configuration\ProductFlawConfiguration.cs" />
+    <Compile Include="Configuration\ProductionEntryConfiguration.cs" />
     <Compile Include="Configuration\ScheduleConfiguration.cs" />
     <Compile Include="Initialization\DebugInitialization.cs" />
     <Compile Include="PrestigeContext.cs" />

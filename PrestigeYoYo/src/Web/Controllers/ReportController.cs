@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Prestige.DB.Models;
 using Prestige.Services;
-using Prestige.ViewModels;
 
 namespace Prestige.Controllers
 {
@@ -22,14 +18,21 @@ namespace Prestige.Controllers
         /// <param name="productService">The product service.</param>
         public ReportController(
                 IMappingEngine mapper,
-                IProductService productService) : base(mapper)
+                IProductService productService,
+                IProductionEntryService entryService) : base(mapper)
         {
             if (productService == null)
             {
                 throw new ArgumentNullException("productService");
             }
 
+            if (entryService == null)
+            {
+                throw new ArgumentNullException("entryService");
+            }
+
             this.ProductService = productService;
+            this.EntryService = entryService;
         }
 
         /// <summary>
@@ -39,6 +42,14 @@ namespace Prestige.Controllers
         /// The person service.
         /// </value>
         private IProductService ProductService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the entry service.
+        /// </summary>
+        /// <value>
+        /// The entry service.
+        /// </value>
+        private IProductionEntryService EntryService { get; set; }
 
         /// <summary>
         /// Index view.

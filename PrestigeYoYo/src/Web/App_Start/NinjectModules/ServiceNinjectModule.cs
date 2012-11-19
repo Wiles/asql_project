@@ -19,6 +19,7 @@ namespace Prestige.Web
         {
             Bind<IProductService>().To<ProductService>();
             Bind<IScheduleService>().To<ScheduleService>();
+            Bind<IProductionEntryService>().To<ProductionEntryService>();
         }
     }
 }

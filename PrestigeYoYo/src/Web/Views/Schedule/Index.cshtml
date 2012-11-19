@@ -6,6 +6,8 @@
     var wednesday = Model.Item1.Where(s => s.Day == "WEDNESDAY");
     var thursday = Model.Item1.Where(s => s.Day == "THURSDAY");
     var friday = Model.Item1.Where(s => s.Day == "FRIDAY");
+    var saturday = Model.Item1.Where(s => s.Day == "SATURDAY");
+    var sunday = Model.Item1.Where(s => s.Day == "SUNDAY");
 
     var colors = new string[]
     {
@@ -24,15 +26,22 @@
     .time-col
     {
         width:70px;
+        text-align:center;
     }
     .off-time
     {
-        background:LightGray;
+        background:White;
     }
     .dropdown
     {
         width:140px;
-        margin:20px 20px 20px 20px;
+        margin:5px 20px 20px 20px;
+    }
+    .dropdown-text
+    {
+        width:100px;
+        margin:20px 20px 5px 20px;
+        text-aling:right;
     }
 @{ int c = 0; }
 @foreach (var guid in Model.Item2.Select(p => p.Id))
@@ -46,13 +55,14 @@
 <table style="table-layout:fixed;width:100%;">
     <tr>
         <td class="time-col"></td>
-        <td style="text-align:center;"><strong>Saturday</strong></td>
+        <td style="text-align:center;"><strong>Sunday</strong></td>
         <td style="text-align:center"><strong>Monday</strong></td>
         <td style="text-align:center"><strong>Tuesday</strong></td>
         <td style="text-align:center"><strong>Wednesday</strong></td>
         <td style="text-align:center"><strong>Thursday</strong></td>
         <td style="text-align:center"><strong>Friday</strong></td>
-        <td style="text-align:center"><strong>Sunday</strong></td>
+        <td style="text-align:center"><strong>Saturday</strong></td>
+        <td class="time-col" style="text-align:right"></td>
     </tr>
 </table>
 
@@ -64,26 +74,33 @@
     var wed = wednesday.FirstOrDefault(s => s.Hour == i);
     var thur = thursday.FirstOrDefault(s => s.Hour == i);
     var fri = friday.FirstOrDefault(s => s.Hour == i);
+    var sat = saturday.FirstOrDefault(s => s.Hour == i);
+    var sun = sunday.FirstOrDefault(s => s.Hour == i);
     
     <tr>
         <td class="time-col">@string.Format("{0:D2}:00", i)</td>
-        <td class="off-time"></td>
-        <td class="@(mon == null ? "" : "c" + mon.Product.Id.ToString())">
+        <td class="@(sun == null ? "off-time" : "c" + sun.Product.Id.ToString())">
+            @(sun == null ? "" : string.Format("{0}({1})", sun.Product.Description, sun.Product.SKU))
+        </td>
+        <td class="@(mon == null ? "off-time" : "c" + mon.Product.Id.ToString())">
             @(mon == null ? "" : string.Format("{0}({1})", mon.Product.Description, mon.Product.SKU))
         </td>
-        <td class="@(tue == null ? "" : "c" + tue.Product.Id.ToString())">
+        <td class="@(tue == null ? "off-time" : "c" + tue.Product.Id.ToString())">
             @(tue == null ? "" : string.Format("{0}({1})", tue.Product.Description, tue.Product.SKU))
         </td>
-        <td class="@(wed == null ? "" : "c" + wed.Product.Id.ToString())">
+        <td class="@(wed == null ? "off-time" : "c" + wed.Product.Id.ToString())">
             @(wed == null ? "" : string.Format("{0}({1})", wed.Product.Description, wed.Product.SKU))
         </td>
-        <td class="@(thur == null ? "" : "c" + thur.Product.Id.ToString())">
+        <td class="@(thur == null ? "off-time" : "c" + thur.Product.Id.ToString())">
             @(thur == null ? "" : string.Format("{0}({1})", thur.Product.Description, thur.Product.SKU))
         </td>
-        <td class="@(fri == null ? "" : "c" + fri.Product.Id.ToString())">
+        <td class="@(fri == null ? "off-time" : "c" + fri.Product.Id.ToString())">
             @(fri == null ? "" : string.Format("{0}({1})", fri.Product.Description, fri.Product.SKU))
         </td>
-        <td class="off-time"></td>
+        <td class="@(sat == null ? "off-time" : "c" + sat.Product.Id.ToString())">
+            @(sat == null ? "" : string.Format("{0}({1})", sat.Product.Description, sat.Product.SKU))
+        </td>
+        <td class="time-col">@string.Format("{0:D2}:00", i)</td>
     </tr>
 }
 </table>
@@ -91,13 +108,17 @@
 @using (Html.BeginForm("Edit", "Schedule", FormMethod.Post))
 {
 <div style="border:2px solid black;text-align:center;">
+    <span class="dropdown-text">Day:</span>
     <select name="day" class="dropdown">
-        <option value="MONDAY">Monday</option>
+        <option value="SUNDAY">Sunday</option>
+        <option value="MONDAY" selected="selected">Monday</option>
         <option value="TUESDAY">Tuesday</option>
         <option value="WEDNESDAY">Wednesday</option>
         <option value="THURSDAY">Thursday</option>
         <option value="FRIDAY">Friday</option>
+        <option value="SATURDAY">Saturday</option>
     </select>
+    <span class="dropdown-text">Start:</span>
     <select name="start" class="dropdown">
         <option value="0">00:00</option>
         <option value="1">01:00</option>
@@ -124,6 +145,7 @@
         <option value="22">22:00</option>
         <option value="23">23:00</option>
     </select>
+    <span class="dropdown-text">Finish:</span>
     <select name="finish" class="dropdown">
         <option value="1">01:00</option>
         <option value="2">02:00</option>
@@ -150,7 +172,9 @@
         <option value="23">23:00</option>
         <option value="24">24:00</option>
     </select>
+    <span class="dropdown-text">Product:</span>
     <select name="product" class="dropdown">
+        <option value=""><i>[None]</i></option>
     @foreach (var product in Model.Item2)
     {
         <option class="c@(product.Id.ToString())" value="@product.Id.ToString()">@product.SKU</option>

@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Prestige.Services;
-using AutoMapper;
-using Prestige.DB.Models;
+﻿///
+///
+///
 
 namespace Prestige.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using AutoMapper;
+    using Prestige.DB.Models;
+    using Prestige.Services;
+
+    /// <summary>
+    /// The scheduling controller.
+    /// </summary>
     public class ScheduleController : PrestigeController
     {
         /// <summary>
@@ -69,19 +75,27 @@ namespace Prestige.Controllers
         }
 
         /// <summary>
-        /// Edits the specified day.
+        /// Edits the specified day/time schedule.
         /// </summary>
         /// <param name="day">The day.</param>
         /// <param name="start">The start.</param>
         /// <param name="finish">The finish.</param>
         /// <param name="product">The product.</param>
-        /// <returns></returns>
-        public ActionResult Edit(string day, int start, int finish, Guid product)
+        /// <returns>Redirect to the index action.</returns>
+        [HttpPost]
+        public ActionResult Edit(string day, int start, int finish, Guid? product)
         {
-            var prod = this.ProductService.List()
-                                .FirstOrDefault(p => p.Id == product);
+            try
+            {
+                var prod = this.ProductService.List()
+                                    .FirstOrDefault(p => p.Id == product);
 
-            this.ScheduleService.Add(day, start, finish, prod);
+                this.ScheduleService.Add(day, start, finish, prod);
+            }
+            catch (ArgumentException)
+            {
+                // woohoo!
+            }
 
             return RedirectToAction("Index");
         }

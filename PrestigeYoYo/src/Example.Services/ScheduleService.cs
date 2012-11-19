@@ -20,7 +20,9 @@ namespace Prestige.Services
             "TUESDAY",
             "WEDNESDAY",
             "THURSDAY",
-            "FRIDAY"
+            "FRIDAY",
+            "SATURDAY",
+            "SUNDAY"
         };
 
         /// <summary>
@@ -53,6 +55,19 @@ namespace Prestige.Services
         public IQueryable<Schedule> List()
         {
             return this.Repository;
+        }
+
+        /// <summary>
+        /// Gets the schedule entry by timestamp.
+        /// </summary>
+        /// <param name="timestamp">The timestamp.</param>
+        /// <returns>The schedule entry.</returns>
+        public Schedule GetByTimestamp(DateTime timestamp)
+        {
+            var day = timestamp.DayOfWeek.ToString().ToUpper();
+            var hour = timestamp.Hour;
+            return this.Repository.FirstOrDefault(
+                                        s => s.Day == day && s.Hour == hour);
         }
 
         /// <summary>

@@ -21,12 +21,12 @@ namespace Prestige.DB.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the production id.
+        /// Gets or sets the production entry.
         /// </summary>
         /// <value>
-        /// The production id.
+        /// The production entry.
         /// </value>
-        public Guid ProductionId { get; set; }
+        public ProductionEntry ProductionEntry { get; set; }
 
         /// <summary>
         /// Gets or sets the work area.

@@ -19,6 +19,7 @@ namespace Prestige.Web
         {
             Bind<IProductRepository>().To<ProductRepository>();
             Bind<IScheduleRepository>().To<ScheduleRepository>();
+            Bind<IProductionEntryRepository>().To<ProductionEntryRepository>();
         }
     }
 }

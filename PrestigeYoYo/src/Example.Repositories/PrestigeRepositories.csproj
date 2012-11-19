@@ -53,9 +53,11 @@
     <Compile Include="Contracts\IProductRepository.cs" />
     <Compile Include="Contracts\IProductFlawRepository.cs" />
     <Compile Include="Contracts\IProductionStationRepository.cs" />
+    <Compile Include="Contracts\IProductionEntryRepository.cs" />
     <Compile Include="ProductFlawRepository.cs" />
     <Compile Include="ProductionStageRepository.cs" />
     <Compile Include="ProductionStationRepository.cs" />
+    <Compile Include="ProductionEntryRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduleRepository.cs" />
