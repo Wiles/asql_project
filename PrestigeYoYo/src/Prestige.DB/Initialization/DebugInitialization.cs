@@ -19,12 +19,24 @@ namespace Prestige.DB
         /// </summary>
         public DebugInitialization()
         {
+            var user = new Role() { Name = "User" };
+            var admin = new Role() { Name = "Administrator" };
+
+            this.Roles = new Collection<Role>() { user, admin };
+
             this.Users = new Collection<User>()
             {
                 new User()
                 {
                     UserName = "root",
-                    Password = "63a9f0ea7bb98050796b649e85481845"
+                    Password = "63a9f0ea7bb98050796b649e85481845",
+                    Roles = new Collection<Role>() { user, admin }
+                },
+                new User()
+                {
+                    UserName = "noob",
+                    Password = "9cb4afde731e9eadcda4506ef7c65fa2",
+                    Roles = new Collection<Role>() { user }
                 }
             };
 
@@ -261,11 +273,20 @@ namespace Prestige.DB
         private ICollection<User> Users { get; set; }
 
         /// <summary>
+        /// Gets or sets the roles.
+        /// </summary>
+        /// <value>
+        /// The roles.
+        /// </value>
+        private ICollection<Role> Roles { get; set; }
+
+        /// <summary>
         /// Seeds the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         protected override void Seed(PrestigeContext context)
         {
+            Seed(context, this.Roles);
             Seed(context, this.Users);
             Seed(context, this.Products);
             Seed(context, this.Stations);

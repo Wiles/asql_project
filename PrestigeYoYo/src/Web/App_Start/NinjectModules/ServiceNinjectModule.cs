@@ -5,7 +5,9 @@
 namespace Prestige.Web
 {
     using Ninject.Modules;
+    using Ninject.Web.Common;
     using Prestige.Services;
+    using Prestige.Web.Providers;
 
     /// <summary>
     /// Module for injecting service classes.
@@ -20,9 +22,11 @@ namespace Prestige.Web
             Bind<IProductService>().To<ProductService>();
             Bind<IScheduleService>().To<ScheduleService>();
             Bind<IProductionEntryService>().To<ProductionEntryService>();
-            Bind<IUserService>().To<UserService>();
             Bind<IProductFlawService>().To<ProductFlawService>();
             Bind<IProductionStationService>().To<ProductionStationService>();
+
+            Bind<IUserService>().To<UserService>().InRequestScope();
+            Bind<IUserServiceFactory>().To<UserServiceFactory>().InSingletonScope();
         }
     }
 }

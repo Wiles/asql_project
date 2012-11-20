@@ -5,13 +5,10 @@
 namespace Prestige.DB.Models
 {
     using System;
-    using Prestige.EF;
     using System.Collections.Generic;
+    using Prestige.EF;
 
-    /// <summary>
-    /// Represents a user in the database.
-    /// </summary>
-    public class User : IModelBase
+    public class Role : IModelBase
     {
         /// <summary>
         /// Gets or sets the id.
@@ -27,22 +24,14 @@ namespace Prestige.DB.Models
         /// <value>
         /// The user name.
         /// </value>
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the password hash.
+        /// Gets or sets the users.
         /// </summary>
         /// <value>
-        /// The password hash.
+        /// The users.
         /// </value>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the roles.
-        /// </summary>
-        /// <value>
-        /// The roles.
-        /// </value>
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

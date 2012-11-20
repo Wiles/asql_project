@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace Prestige.Controllers
 {
-    [Authorize]
+    [PrestigeAuthorize]
     public class PrestigeController : Controller
     {
         /// <summary>

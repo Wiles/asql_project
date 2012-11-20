@@ -54,6 +54,7 @@
     <Compile Include="ProductFlawType.cs" />
     <Compile Include="ProductionEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

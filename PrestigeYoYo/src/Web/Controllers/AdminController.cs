@@ -12,6 +12,7 @@ namespace Prestige.Controllers
     using Prestige.Web.Controllers;
     using AutoMapper;
 
+    [PrestigeAuthorize(Roles = "Administrator")]
     public class AdminController : PrestigeController
     {
         /// <summary>
@@ -21,7 +22,6 @@ namespace Prestige.Controllers
         /// <param name="mapper">The mapper.</param>
         public AdminController(IMappingEngine mapper) : base(mapper)
         {
-
         }
 
         /// <summary>

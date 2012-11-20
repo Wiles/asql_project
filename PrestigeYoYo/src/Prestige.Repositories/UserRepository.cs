@@ -4,8 +4,6 @@
 
 namespace Prestige.Repositories
 {
-    using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
@@ -14,6 +12,7 @@ namespace Prestige.Repositories
 
     public class UserRepository : RepositoryBase<User>, IUserRepository, IRepository<User>
     {
+
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="UserRepository" /> class.
@@ -21,6 +20,19 @@ namespace Prestige.Repositories
         /// <param name="context">The database context.</param>
         public UserRepository(DbContext context) : base(context)
         {
+        }
+
+        /// <summary>
+        /// Gets the expression.
+        /// </summary>
+        Expression IQueryable.Expression
+        {
+            get
+            {
+                var query = this.Context.Set<User>() as IQueryable<User>;
+                query = query.Include("Roles");
+                return query.Expression;
+            }
         }
     }
 }

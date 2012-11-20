@@ -8,7 +8,7 @@ using Prestige.ViewModels;
 
 namespace Prestige.Web
 {
-    public class ProductMappings
+    public class ViewModelMappings
     {
         public static void Map()
         {

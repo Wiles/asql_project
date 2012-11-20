@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Data.Entity;
-using Prestige.DB;
-using System.Data.Entity.Infrastructure;
-using Ninject.Web.Mvc;
+using System.Web.Security;
 using Ninject;
-using System.Reflection;
 using Ninject.Web.Common;
+using Prestige.DB;
+using System;
+using System.Web;
+using Prestige.Web.Controllers;
 
 namespace Prestige
 {
@@ -42,7 +40,7 @@ namespace Prestige
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Report", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Account", action = "LogOn", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 
@@ -63,6 +61,56 @@ namespace Prestige
         }
 
         /// <summary>
+        /// Handles the Error event of the Application.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">
+        ///   The <see cref="EventArgs" /> instance containing the event data.
+        /// </param>
+        public void Application_Error(object sender, EventArgs e)
+        {
+            var httpContext = ((MvcApplication)sender).Context;
+
+            var currentRouteData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(httpContext));
+            var currentController = " ";
+            var currentAction = " ";
+
+            if (currentRouteData != null)
+            {
+                if (currentRouteData.Values["controller"] != null && !String.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
+                {
+                    currentController = currentRouteData.Values["controller"].ToString();
+                }
+
+                if (currentRouteData.Values["action"] != null && !String.IsNullOrEmpty(currentRouteData.Values["action"].ToString()))
+                {
+                    currentAction = currentRouteData.Values["action"].ToString();
+                }
+            }
+
+            var ex = Server.GetLastError();
+
+            var controller = new ErrorController();
+            var routeData = new RouteData();
+            var action = "Index";
+
+            var errorCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
+            var message = ex is HttpException ? ((HttpException)ex).Message : null;
+
+            httpContext.ClearError();
+            httpContext.Response.Clear();
+            httpContext.Response.StatusCode = errorCode;
+            httpContext.Response.TrySkipIisCustomErrors = true;
+            routeData.Values["controller"] = "Error";
+            routeData.Values["action"] = action;
+            routeData.Values["code"] = errorCode;
+            routeData.Values["message"] = message;
+
+            controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
+            ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
+        }
+
+        /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>
@@ -72,6 +120,7 @@ namespace Prestige
         {
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
+            kernel.Inject(Roles.Provider);
             return kernel;
         }
     }

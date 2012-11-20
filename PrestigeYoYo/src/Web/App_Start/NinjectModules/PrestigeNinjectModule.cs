@@ -17,7 +17,7 @@ namespace Prestige.Web
             Bind<IMappingEngine>().ToMethod(m => Mapper.Engine)
                 .InSingletonScope();
 
-            ProductMappings.Map();
+            ViewModelMappings.Map();
         }
     }
 }

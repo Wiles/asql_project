@@ -59,7 +59,7 @@ namespace Prestige.Web.Controllers
             if (this.Service.Authenticate(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, remember == "on");
-                return Redirect(Request.QueryString["ReturnUrl"] ?? "/");
+                return Redirect(Request.QueryString["ReturnUrl"] ?? "/Report/Index");
             }
 
             return View((object)username);

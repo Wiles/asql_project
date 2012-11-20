@@ -1,0 +1,15 @@
+﻿@model Tuple<int, string>
+@{
+    ViewBag.Title = string.Format("Error {0}", Model.Item1);
+}
+
+<h2>An error has occured...</h2>
+
+@if (!string.IsNullOrEmpty(Model.Item2))
+{
+    @Model.Item2
+}
+else
+{
+<text>An error occured while processing your request!  If this continues to occur, please proceed to run around screaming as if you are on fire, or contact your system administrator.</text> 
+}
