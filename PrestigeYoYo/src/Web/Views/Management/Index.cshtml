@@ -7,33 +7,41 @@
     .ui-jqgrid-titlebar
     {
         height: 15px;
+    }    
+    #toolbar {
+        padding: 5px;
+        margin-bottom:10px;
     }
 </style>
 
 <script type="text/javascript">
     $(function () {
-        $("#productsBtn").button()
+        $("#productsBtn")
             .click(function () {
                 $("#container").load("@Url.Action("Index", "Products")");
             });
-        $("#defectsBtn").button()
+        $("#defectsBtn")
             .click(function () {
                 $("#container").load("@Url.Action("Index", "Defects")");
             });
-        $("#stationsBtn").button()
+        $("#stationsBtn")
             .click(function () {
                 $("#container").load("@Url.Action("Index", "Stations")");
             });
+            
+        $("#btn").buttonset();
     });
 </script>
 
 <h2>Data Management</h2>
 
-<div style="margin:0px 0px 25px 0px;">
-    <button id="productsBtn">Products</button>
-    <button id="defectsBtn">Defects</button>
-    <button id="stationsBtn">Stations</button>
-</div>
+<span id="toolbar" class="ui-widget-header ui-corner-all" style="display:inline-block;">
+    <span id="btn">
+        <input type="radio" id="productsBtn" name="btn" checked="checked" /><label for="productsBtn">Products</label>
+        <input type="radio" id="defectsBtn" name="btn" /><label for="defectsBtn">Defects</label>
+        <input type="radio" id="stationsBtn" name="btn" /><label for="stationsBtn">Stations</label>
+    </span>
+</span>
 
 <div id="container">
     @Html.Action("Index", "Products")
