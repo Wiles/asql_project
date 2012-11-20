@@ -1,5 +1,4 @@
-﻿@using Prestige.ViewModels;
-
+﻿
 <script type="text/javascript">
     // http://www.trirand.com/jqgridwiki/doku.php?id=wiki:jqgriddocs
     $(document).ready(function () {
@@ -7,7 +6,7 @@
         // Set up the jquery grid
         $("#defectsTable").jqGrid({
             // Ajax related configurations
-            caption: "Defects",
+            caption: "Production Defects",
             url: "@Url.Action("Data", "Defects")",
             datatype: "json",
             mtype: "POST",

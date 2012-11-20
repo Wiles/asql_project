@@ -20,17 +20,18 @@
             .click(function () {
                 $("#container").load("@Url.Action("Index", "Defects")");
             });
-        $("#stagesBtn").button();
-        $("#stationsBtn").button();
+        $("#stationsBtn").button()
+            .click(function () {
+                $("#container").load("@Url.Action("Index", "Stations")");
+            });
     });
 </script>
 
-<h2>Management</h2>
+<h2>Data Management</h2>
 
 <div style="margin:0px 0px 25px 0px;">
     <button id="productsBtn">Products</button>
     <button id="defectsBtn">Defects</button>
-    <button id="stagesBtn">Stages</button>
     <button id="stationsBtn">Stations</button>
 </div>
 

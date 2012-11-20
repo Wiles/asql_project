@@ -17,6 +17,9 @@ namespace Prestige.Web
 
             Mapper.CreateMap<ProductFlawType, DefectListModel>()
                 .ForMember(m => m.Guid, mo => mo.MapFrom(f => f.Id));
+
+            Mapper.CreateMap<ProductionStation, StationListModel>()
+                .ForMember(m => m.Guid, mo => mo.MapFrom(s => s.Id));
         }
     }
 }
