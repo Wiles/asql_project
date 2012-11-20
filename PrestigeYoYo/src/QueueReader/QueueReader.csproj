@@ -78,23 +78,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Endo.EF\PrestigeEF.csproj">
+    <ProjectReference Include="..\Prestige.EF\PrestigeEF.csproj">
       <Project>{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}</Project>
       <Name>PrestigeEF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.DB.Models\PrestigeDBModels.csproj">
+    <ProjectReference Include="..\Prestige.DB.Models\PrestigeDBModels.csproj">
       <Project>{35F11BBA-2012-4C70-943B-197E7F163454}</Project>
       <Name>PrestigeDBModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.DB\PrestigeDB.csproj">
+    <ProjectReference Include="..\Prestige.DB\PrestigeDB.csproj">
       <Project>{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}</Project>
       <Name>PrestigeDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.Repositories\PrestigeRepositories.csproj">
+    <ProjectReference Include="..\Prestige.Repositories\PrestigeRepositories.csproj">
       <Project>{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}</Project>
       <Name>PrestigeRepositories</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.Services\PrestigeServices.csproj">
+    <ProjectReference Include="..\Prestige.Services\PrestigeServices.csproj">
       <Project>{D67EA789-E659-46A3-9683-10682D121713}</Project>
       <Name>PrestigeServices</Name>
     </ProjectReference>

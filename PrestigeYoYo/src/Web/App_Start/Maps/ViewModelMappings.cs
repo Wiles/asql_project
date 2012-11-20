@@ -12,7 +12,11 @@ namespace Prestige.Web
     {
         public static void Map()
         {
-            Mapper.CreateMap<Product, ProductListModel>();
+            Mapper.CreateMap<Product, ProductListModel>()
+                .ForMember(m => m.Guid, mo => mo.MapFrom(p => p.Id));
+
+            Mapper.CreateMap<ProductFlawType, DefectListModel>()
+                .ForMember(m => m.Guid, mo => mo.MapFrom(f => f.Id));
         }
     }
 }

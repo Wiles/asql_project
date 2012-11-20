@@ -1,10 +1,14 @@
-﻿using System.Web.Mvc;
-using System.Web.Security;
-using Prestige.Services;
-using System;
+﻿///
+///
+///
 
 namespace Prestige.Web.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using System.Web.Security;
+    using Prestige.Services;
+
     public class AccountController : Controller
     {
         /// <summary>

@@ -13,7 +13,7 @@ namespace Prestige.Controllers
     using Prestige.Services;
     using Prestige.ViewModels;
 
-    public class ProductsController : PrestigeController
+    public class DefectsController : PrestigeController
     {
         /// <summary>
         /// Initializes a new instance of the
@@ -21,16 +21,16 @@ namespace Prestige.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="productService">The product service.</param>
-        public ProductsController(
+        public DefectsController(
                 IMappingEngine mapper,
-                IProductService productService) : base(mapper)
+                IProductFlawService flawService) : base(mapper)
         {
-            if (productService == null)
+            if (flawService == null)
             {
-                throw new ArgumentNullException("productService");
+                throw new ArgumentNullException("flawService");
             }
 
-            this.ProductService = productService;
+            this.FlawService = flawService;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Prestige.Controllers
         /// <value>
         /// The person service.
         /// </value>
-        private IProductService ProductService { get; set; }
+        private IProductFlawService FlawService { get; set; }
 
         /// <summary>
         /// Index view.
@@ -73,7 +73,7 @@ namespace Prestige.Controllers
                 string searchOper,
                 string searchString)
         {
-            var products = this.ProductService.List().ToArray().AsQueryable();
+            var products = this.FlawService.List().ToArray().AsQueryable();
             var filtered = products;
 
             if (_search)
@@ -92,15 +92,15 @@ namespace Prestige.Controllers
             }
 
             var models = Mapper.Map<
-                    IEnumerable<Product>,
-                    IEnumerable<ProductListModel>>(
+                    IEnumerable<ProductFlawType>,
+                    IEnumerable<DefectListModel>>(
                             sorted.Skip((page - 1) * rows).Take(rows).ToArray());
 
             var objs = from m in models
                        select new
                        {
                            Id = m.Guid,
-                           cell = new object[] { m.Guid, m.SKU, m.Description, m.Colour }
+                           cell = new object[] { m.Guid, m.Reason, m.Identifier, m.Decision }
                        };
 
             var data = new
@@ -118,12 +118,12 @@ namespace Prestige.Controllers
         /// Edits a product by id.
         /// </summary>
         /// <param name="guid">The id.</param>
-        /// <param name="sku">The sku.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="colour">The colour.</param>
+        /// <param name="decision">The decision.</param>
+        /// <param name="reason">The reason.</param>
+        /// <param name="identifier">The identifier.</param>
         /// <returns>Empty result.</returns>
         [HttpPost]
-        public ActionResult Edit(string guid, string sku, string description, string colour)
+        public ActionResult Edit(string guid, string decision, string reason, string identifier)
         {
             Guid id = Guid.Empty;
 
@@ -132,16 +132,15 @@ namespace Prestige.Controllers
                 return new EmptyResult();
             }
 
-            var product = this.ProductService.List().FirstOrDefault(
+            var flaw = this.FlawService.List().FirstOrDefault(
                         p => p.Id == id);
 
-            if (product != null)
+            if (flaw != null)
             {
-                product.SKU = sku;
-                product.Description = description;
-                product.Colour = colour;
-
-                this.ProductService.Update(product);
+                flaw.Decision = decision.Trim();
+                flaw.Reason = reason;
+                flaw.Identifier = identifier;
+                this.FlawService.Update(flaw);
             }
 
             return new EmptyResult();
@@ -153,16 +152,16 @@ namespace Prestige.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The edit product view.</returns>
         [HttpPost]
-        public ActionResult Add(string sku, string description, string colour)
+        public ActionResult Add(string decision, string reason, string identifier)
         {
-            var product = new Product()
+            var flaw = new ProductFlawType()
             {
-                SKU = sku,
-                Description = description,
-                Colour = colour
+                Decision = decision,
+                Reason = reason,
+                Identifier = identifier
             };
 
-            this.ProductService.Add(product);
+            this.FlawService.Add(flaw);
             return new EmptyResult();
         }
     }

@@ -58,7 +58,7 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Endo.EF\PrestigeEF.csproj">
+    <ProjectReference Include="..\Prestige.EF\PrestigeEF.csproj">
       <Project>{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}</Project>
       <Name>PrestigeEF</Name>
     </ProjectReference>

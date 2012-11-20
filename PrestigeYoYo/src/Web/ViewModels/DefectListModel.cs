@@ -1,8 +1,12 @@
-﻿using System;
+﻿///
+///
+///
 
 namespace Prestige.ViewModels
 {
-    public class ProductListModel
+    using System;
+
+    public class DefectListModel
     {
         /// <summary>
         /// Gets or sets the id.
@@ -10,30 +14,30 @@ namespace Prestige.ViewModels
         /// <value>
         /// The id.
         /// </value>
-        public Guid Id { get; set; }
+        public Guid Guid { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the decision.
         /// </summary>
         /// <value>
-        /// The name.
+        /// The decision.
         /// </value>
-        public string SKU { get; set; }
+        public string Decision { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Gets or sets the reason.
         /// </summary>
         /// <value>
-        /// The description.
+        /// The reason.
         /// </value>
-        public string Description { get; set; }
+        public string Reason { get; set; }
 
         /// <summary>
-        /// Gets or sets the colour.
+        /// Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The colour.
+        /// The identifier.
         /// </value>
-        public string Colour { get; set; }
+        public string Identifier { get; set; }
     }
 }

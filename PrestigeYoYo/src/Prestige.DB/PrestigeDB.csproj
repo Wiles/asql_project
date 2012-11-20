@@ -64,11 +64,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Endo.EF\PrestigeEF.csproj">
+    <ProjectReference Include="..\Prestige.EF\PrestigeEF.csproj">
       <Project>{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}</Project>
       <Name>PrestigeEF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Example.DB.Models\PrestigeDBModels.csproj">
+    <ProjectReference Include="..\Prestige.DB.Models\PrestigeDBModels.csproj">
       <Project>{35F11BBA-2012-4C70-943B-197E7F163454}</Project>
       <Name>PrestigeDBModels</Name>
     </ProjectReference>

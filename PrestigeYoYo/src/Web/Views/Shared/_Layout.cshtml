@@ -3,11 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title | Prestige YoYo</title>
     @Url.StyleSheet("~/Content/Prestige.css",
                     "~/Content/jquery-ui-1.9.1.custom.min.css",
                     "~/Content/ui.jqgrid.css")
     @Url.Script("~/Scripts/jquery-1.7.2.min.js",
+                "~/Scripts/jquery-ui-1.8.18.min.js",
                 "~/Scripts/modernizr-1.7.min.js",
                 "~/Scripts/grid.locale-en.js",
                 "~/Scripts/jquery.jqGrid.src.js")
@@ -34,10 +35,9 @@
     <section id="main">
         @RenderBody()
     </section>
-    <!--
     <footer>
         <div>I am a footer...</div>
         <div>Three Guys Coding &copy; 2012</div>
-    </footer> -->
+    </footer>
 </body>
 </html>

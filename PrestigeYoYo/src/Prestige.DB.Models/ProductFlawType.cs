@@ -21,14 +21,6 @@ namespace Prestige.DB.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the inspection location.
-        /// </summary>
-        /// <value>
-        /// The inspection location.
-        /// </value>
-        public ProductionStation InspectionLocation { get; set; }
-
-        /// <summary>
         /// Gets or sets the decision.
         /// </summary>
         /// <value>

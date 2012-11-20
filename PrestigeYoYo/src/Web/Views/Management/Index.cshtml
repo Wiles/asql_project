@@ -1,5 +1,39 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Data Management";
 }
 
+<style type="text/css">
+    .ui-jqdialog-titlebar,
+    .ui-jqgrid-titlebar
+    {
+        height: 15px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $("#productsBtn").button()
+            .click(function () {
+                $("#container").load("@Url.Action("Index", "Products")");
+            });
+        $("#defectsBtn").button()
+            .click(function () {
+                $("#container").load("@Url.Action("Index", "Defects")");
+            });
+        $("#stagesBtn").button();
+        $("#stationsBtn").button();
+    });
+</script>
+
 <h2>Management</h2>
+
+<div style="margin:0px 0px 25px 0px;">
+    <button id="productsBtn">Products</button>
+    <button id="defectsBtn">Defects</button>
+    <button id="stagesBtn">Stages</button>
+    <button id="stationsBtn">Stations</button>
+</div>
+
+<div id="container">
+    @Html.Action("Index", "Products")
+</div>

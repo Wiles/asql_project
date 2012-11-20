@@ -5,15 +5,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D3F1E94C-E434-4B73-A1F0-D37D1A465133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDB", "src\Example.DB\PrestigeDB.csproj", "{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDB", "src\Prestige.DB\PrestigeDB.csproj", "{9CD0A0A2-B94F-4969-8E63-076B6FF9CB3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDBModels", "src\Example.DB.Models\PrestigeDBModels.csproj", "{35F11BBA-2012-4C70-943B-197E7F163454}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeDBModels", "src\Prestige.DB.Models\PrestigeDBModels.csproj", "{35F11BBA-2012-4C70-943B-197E7F163454}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeEF", "src\Endo.EF\PrestigeEF.csproj", "{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeEF", "src\Prestige.EF\PrestigeEF.csproj", "{7D1B4317-F4C4-4250-94BF-F14ECB52E2C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeRepositories", "src\Example.Repositories\PrestigeRepositories.csproj", "{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeRepositories", "src\Prestige.Repositories\PrestigeRepositories.csproj", "{667BC207-A4FF-40A6-B9E6-6F9E244AAECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeServices", "src\Example.Services\PrestigeServices.csproj", "{D67EA789-E659-46A3-9683-10682D121713}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrestigeServices", "src\Prestige.Services\PrestigeServices.csproj", "{D67EA789-E659-46A3-9683-10682D121713}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6514F6C8-C335-4567-BCD6-7AE88C7B6D7E}"
 	ProjectSection(SolutionItems) = preProject

@@ -5,17 +5,17 @@
     $(document).ready(function () {
 
         // Set up the jquery grid
-        $("#productsTable").jqGrid({
+        $("#defectsTable").jqGrid({
             // Ajax related configurations
-            caption: "Products",
-            url: "@Url.Action("Data", "Products")",
+            caption: "Defects",
+            url: "@Url.Action("Data", "Defects")",
             datatype: "json",
             mtype: "POST",
 
-            editurl: "@Url.Action("Edit", "Products")",
+            editurl: "@Url.Action("Edit", "Defects")",
 
             // Specify the column names
-            colNames: ["Guid", "SKU", "Description", "Colour"],
+            colNames: ["Guid", "Reason", "Identifier", "Decision"],
 
             // Configure the columns
             colModel:
@@ -27,22 +27,24 @@
                 editable: true
             },
             {
-                name: "SKU",
-                index: "SKU",
+                name: "Reason",
+                index: "Reason",
                 align: "left",
                 editable: true
             },
             {
-                name: "Description",
-                index: "Description",
+                name: "Identifier",
+                index: "Identifier",
                 align: "left",
                 editable: true
             },
             {
-                name: "Colour",
-                index: "Colour",
+                name: "Decision",
+                index: "Decision",
                 align: "left",
-                editable: true
+                editable: true,
+                edittype: "select",
+                editoptions: { value: "Rework:Rework;Reject:Reject" }
             }
             ],
 
@@ -52,16 +54,16 @@
 
             // Paging
             toppager: false,
-            pager: $("#productsTablePager"),
+            pager: $("#defectsTablePager"),
             rowNum: 10,
             rowList: [5, 10, 15, 25],
             viewrecords: true, // Specify if "total number of records" is displayed
 
             // Default sorting
-            sortname: "SKU",
+            sortname: "Reason",
             sortorder: "asc"
 
-        }).navGrid("#productsTablePager",
+        }).navGrid("#defectsTablePager",
             { refresh: true, add: true, edit: true, del: false },
                 {
                     closeAfterEdit: true,
@@ -69,7 +71,7 @@
                 }, // settings for edit
                 {
                     closeAfterAdd: true,
-                    url: "@Url.Action("Add", "Products")"
+                    url: "@Url.Action("Add", "Defects")"
                 }, // settings for add
                 {}, // settings for delete
                 { sopt: ["cn"] } // Search options. Some options can be set on column level
@@ -79,6 +81,6 @@
 </script>
 
 <div>
-    <table id="productsTable" class="scroll"></table>
-    <div id="productsTablePager"></div>
+    <table id="defectsTable" class="scroll"></table>
+    <div id="defectsTablePager"></div>
 </div>
