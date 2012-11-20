@@ -90,6 +90,26 @@ namespace Prestige.Services
         }
 
         /// <summary>
+        /// Determines whether a user is in a specified role.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="role">The role.</param>
+        /// <returns>
+        ///   <c>true</c> if user is in role; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsUserInRole(string username, string role)
+        {
+            var low = username.ToLower();
+            var user = this.Repository.FirstOrDefault(u => u.UserName == low);
+            if (user != null)
+            {
+                return user.Roles.Any(r => r.Name == role);
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Gets the hash of a string.
         /// </summary>
         /// <param name="str">The string.</param>

@@ -25,20 +25,25 @@ namespace Prestige.Controllers
         public ScheduleController(
                     IMappingEngine mapper,
                     IScheduleService scheduleService,
-                    IProductService productService) : base(mapper)
+                    IProductService productService,
+                    IUserService userService) : base(mapper)
         {
             if (scheduleService == null)
             {
                 throw new ArgumentNullException("scheduleService");
             }
-
-            if (productService == null)
+            else if (productService == null)
             {
                 throw new ArgumentNullException("productService");
+            }
+            else if (userService == null)
+            {
+                throw new ArgumentNullException("userService");
             }
 
             this.ScheduleService = scheduleService;
             this.ProductService = productService;
+            this.UserService = userService;
         }
 
         /// <summary>
@@ -58,9 +63,17 @@ namespace Prestige.Controllers
         private IProductService ProductService { get; set; }
 
         /// <summary>
-        /// Indexes this instance.
+        /// Gets or sets the user service.
         /// </summary>
-        /// <returns></returns>
+        /// <value>
+        /// The user service.
+        /// </value>
+        private IUserService UserService { get; set; }
+
+        /// <summary>
+        /// Get the index view.
+        /// </summary>
+        /// <returns>The index view.</returns>
         public ActionResult Index()
         {
             var schedule = this.ScheduleService.List().Where(s => s.Product != null).ToArray();
@@ -72,6 +85,22 @@ namespace Prestige.Controllers
                     IEnumerable<Product>>(
                         schedule,
                         products));
+        }
+
+        /// <summary>
+        /// Editors this instance.
+        /// </summary>
+        /// <returns>The editor view.</returns>
+        public ActionResult Editor()
+        {
+            var user = this.Session["username"] as string;
+            if (this.UserService.IsUserInRole(user, "Administrator"))
+            {
+                var products = this.ProductService.List().OrderBy(p => p.SKU).ToArray();
+                return PartialView(products);
+            }
+
+            return new EmptyResult();
         }
 
         /// <summary>
