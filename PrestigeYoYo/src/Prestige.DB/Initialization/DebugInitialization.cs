@@ -8,6 +8,8 @@ namespace Prestige.DB
     using System.Collections.ObjectModel;
     using System.Data.Entity;
     using Prestige.DB.Models;
+    using System;
+    using System.Linq;
 
     /// <summary>
     /// Debug Database Initialization for Prestige.
@@ -238,6 +240,38 @@ namespace Prestige.DB
                     Identifier = "FINAL_COAT_FLAW"
                 }
             };
+
+            var days = new string[]
+            {
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+            };
+
+            this.Schedule = new Collection<Schedule>();
+            var random = new Random();
+            var products = this.Products.ToArray();
+
+            for (int d = 0; d < 7; d++)
+            {
+                for (int h = 0; h < 24; h +=4 )
+                {
+                    var product = products[random.Next(products.Length)];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        this.Schedule.Add(new Schedule()
+                        {
+                            Day = days[d],
+                            Hour = (h + i),
+                            Product = product
+                        });
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -281,6 +315,14 @@ namespace Prestige.DB
         private ICollection<Role> Roles { get; set; }
 
         /// <summary>
+        /// Gets or sets the schedule.
+        /// </summary>
+        /// <value>
+        /// The schedule.
+        /// </value>
+        private ICollection<Schedule> Schedule { get; set; }
+
+        /// <summary>
         /// Seeds the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
@@ -291,6 +333,7 @@ namespace Prestige.DB
             Seed(context, this.Products);
             Seed(context, this.Stations);
             Seed(context, this.Flaws);
+            Seed(context, this.Schedule);
         }
 
         /// <summary>
