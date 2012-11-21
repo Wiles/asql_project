@@ -38,10 +38,17 @@ namespace Prestige.Web.Controllers
         /// <summary>
         /// Requests user log on.
         /// </summary>
-        /// <returns></returns>
-        public ActionResult LogOn()
+        /// <param name="error">The error message.</param>
+        /// <returns>User log on view.</returns>
+        public ActionResult LogOn(
+                string error)
         {
-            return View(new LoginViewModel());
+            var model = new LoginViewModel()
+            {
+                Error = error
+            };
+
+            return View(model);
         }
 
         /// <summary>
