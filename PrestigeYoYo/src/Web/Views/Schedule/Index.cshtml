@@ -20,22 +20,22 @@
 
     var colors = new string[]
     {
-        "#6ECFF6",
-        "#7EA7D8",
-        "#F49AC2",
-        "#C4DF9B",
-        "#82CA9D",
-        "#7BCDC8",
-        "#F7977A",
-        "#BC8DBF",
-        "#FDC68A",
-        "#8882BE",
-        "#F9AD81",
-        "#A2D39C",
-        "#8493CA",
-        "#FFF79A",
-        "#A187BE",
-        "#F6989D"
+        "#ED1C24",
+        "#F7941D",
+        "#8DC73F",
+        "#00A651",
+        "#00AEEF",
+        "#0054A6",
+        "#662D91",
+        "#EC008C",
+        "#F26522",
+        "#FFF200",
+        "#39B54A",
+        "#00A99D",
+        "#0072BC",
+        "#2E3192",
+        "#92278F",
+        "#ED145B",
     };
 }
 
@@ -51,7 +51,6 @@
     }
     .dropdown
     {
-        width:140px;
         margin:20px 10px 20px 10px;
     }
     .dropdown-text
@@ -98,25 +97,25 @@
     <tr>
         <td class="time-col">@string.Format("{0:D2}:00", i)</td>
         <td class="@(sun == null ? "off-time" : "c" + sun.Product.Id.ToString())">
-            @(sun != null && sun.Product != lastSun ? string.Format("{0}({1})", sun.Product.Description, sun.Product.SKU) : "")
+            @(sun != null && sun.Product != lastSun ? string.Format("{0} ({1})", sun.Product.Description, sun.Product.SKU) : "")
         </td>
         <td class="@(mon == null ? "off-time" : "c" + mon.Product.Id.ToString())">
-            @(mon != null && mon.Product != lastMon ? string.Format("{0}({1})", mon.Product.Description, mon.Product.SKU) : "")
+            @(mon != null && mon.Product != lastMon ? string.Format("{0} ({1})", mon.Product.Description, mon.Product.SKU) : "")
         </td>
         <td class="@(tue == null ? "off-time" : "c" + tue.Product.Id.ToString())">
-            @(tue != null && tue.Product != lastTue ? string.Format("{0}({1})", tue.Product.Description, tue.Product.SKU) : "")
+            @(tue != null && tue.Product != lastTue ? string.Format("{0} ({1})", tue.Product.Description, tue.Product.SKU) : "")
         </td>
         <td class="@(wed == null ? "off-time" : "c" + wed.Product.Id.ToString())">
-            @(wed != null && wed.Product != lastWed ? string.Format("{0}({1})", wed.Product.Description, wed.Product.SKU) : "")
+            @(wed != null && wed.Product != lastWed ? string.Format("{0} ({1})", wed.Product.Description, wed.Product.SKU) : "")
         </td>
         <td class="@(thur == null ? "off-time" : "c" + thur.Product.Id.ToString())">
-            @(thur != null && thur.Product != lastThur ? string.Format("{0}({1})", thur.Product.Description, thur.Product.SKU) : "")
+            @(thur != null && thur.Product != lastThur ? string.Format("{0} ({1})", thur.Product.Description, thur.Product.SKU) : "")
         </td>
         <td class="@(fri == null ? "off-time" : "c" + fri.Product.Id.ToString())">
-            @(fri != null && fri.Product != lastFri ? string.Format("{0}({1})", fri.Product.Description, fri.Product.SKU) : "")
+            @(fri != null && fri.Product != lastFri ? string.Format("{0} ({1})", fri.Product.Description, fri.Product.SKU) : "")
         </td>
         <td class="@(sat == null ? "off-time" : "c" + sat.Product.Id.ToString())">
-            @(sat != null && sat.Product != lastSat ? string.Format("{0}({1})", sat.Product.Description, sat.Product.SKU) : "")
+            @(sat != null && sat.Product != lastSat ? string.Format("{0} ({1})", sat.Product.Description, sat.Product.SKU) : "")
         </td>
         <td class="time-col">@string.Format("{0:D2}:00", i)</td>
     </tr>

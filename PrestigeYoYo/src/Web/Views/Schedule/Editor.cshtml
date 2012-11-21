@@ -2,16 +2,36 @@
     
 <script type="text/javascript">
     $(function () {
-        $("button").button();
+        $("button").button().click(function () {
+            var day = $("#day option:selected").text();
+            var start = $("#start option:selected").text();
+            var finish = $("#finish option:selected").text();
+            var product = $("#product option:selected").text();
+            var msg = "Schedule " + product + " from " + start + " to " + finish + " on " + day + "?";
+            $("#dialog-message").html(msg);
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                height: 160,
+                modal: true,
+                buttons: {
+                    Schedule: function () {
+                        $("#scheduleForm").submit();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
     });
 </script>
            
-@using (Html.BeginForm("Edit", "Schedule", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Schedule", FormMethod.Post, new Dictionary<string, object>() { { "id", "scheduleForm" } }))
 {
 <div style="border:2px solid black;text-align:center;">
     <div style="display:inline-block;">
         <span class="dropdown-text">Day:</span>
-        <select name="day" class="dropdown">
+        <select id="day" name="day" class="dropdown" style="width:110px;">
             <option value="SUNDAY">Sunday</option>
             <option value="MONDAY" selected="selected">Monday</option>
             <option value="TUESDAY">Tuesday</option>
@@ -23,7 +43,7 @@
     </div>
     <div style="display:inline-block;">
         <span class="dropdown-text">Start:</span>
-        <select name="start" class="dropdown">
+        <select id="start" name="start" class="dropdown" style="width:80px;">
             <option value="0">00:00</option>
             <option value="1">01:00</option>
             <option value="2">02:00</option>
@@ -52,7 +72,7 @@
     </div>
     <div style="display:inline-block;">
         <span class="dropdown-text">Finish:</span>
-        <select name="finish" class="dropdown">
+        <select id="finish" name="finish" class="dropdown" style="width:80px;">
             <option value="1">01:00</option>
             <option value="2">02:00</option>
             <option value="3">03:00</option>
@@ -81,14 +101,18 @@
     </div>
     <div style="display:inline-block;">
         <span class="dropdown-text">Product:</span>
-        <select name="product" class="dropdown">
+        <select id="product" name="product" class="dropdown" style="width:250px;">
             <option value=""><i>[None]</i></option>
         @foreach (var product in Model)
         {
-            <option class="c@(product.Id.ToString())" value="@product.Id.ToString()">@product.SKU</option>
+            <option class="c@(product.Id.ToString())" value="@product.Id.ToString()">@string.Format("{0} ({1})", product.Description, product.SKU)</option>
         }
         </select>
     </div>
-    <button style="width:140px;margin-left:30px;">Schedule</button>
+    <button style="width:140px;margin-left:30px;" type="button">Schedule</button>
 </div>
 }
+
+<div id="dialog-confirm" title="Confirm Schedule Change">
+    <span id="dialog-message"></span>
+</div>

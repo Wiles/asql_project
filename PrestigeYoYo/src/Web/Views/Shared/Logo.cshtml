@@ -2,9 +2,9 @@
 @{ var username = Session["username"]; }
 @if (username == null)
 {
-@Html.ActionLink("Log On", "LogOn", "Account")
+<text>Welcome.  @Html.ActionLink("Log On", "LogOn", "Account")</text>
 }
 else
 {
-<text>Welcome <b>@(username)</b>.  @Html.ActionLink("Log Off", "LogOff", "Account")</text> 
+<text>Welcome, <b>@(username)</b>.  @Html.ActionLink("Log Off", "LogOff", "Account")</text> 
 }
