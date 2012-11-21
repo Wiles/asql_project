@@ -7,7 +7,7 @@
             var start = $("#start option:selected").text();
             var finish = $("#finish option:selected").text();
             var product = $("#product option:selected").text();
-            var msg = "Schedule " + product + " from " + start + " to " + finish + " on " + day + "?";
+            var msg = "Schedule " + product + "<br />from " + start + " to " + finish + " on " + day + "?";
             $("#dialog-message").html(msg);
             $("#dialog-confirm").dialog({
                 resizable: false,
@@ -32,7 +32,7 @@
 <div style="border:2px solid black;text-align:center;">
     <div style="display:inline-block;">
         <span class="dropdown-text">Day:</span>
-        <select id="day" name="day" class="dropdown" style="width:110px;">
+        <select id="day" name="day" class="dropdown" style="width:120px;">
             <option value="SUNDAY">Sunday</option>
             <option value="MONDAY" selected="selected">Monday</option>
             <option value="TUESDAY">Tuesday</option>
