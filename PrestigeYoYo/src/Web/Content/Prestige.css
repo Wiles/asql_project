@@ -127,7 +127,6 @@ footer,
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
-    border-bottom: 1px #5C87B2 solid;
     padding: 0;
     margin: 0;
     text-align: left;
@@ -156,6 +155,7 @@ ul#menu li a {
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
+    margin:0px 1px 0px 0px;
 }
 
 ul#menu li a:hover {
