@@ -179,8 +179,11 @@ ul#menu li a {
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
+    background-image: url("images/ui-bg_glass_75_79c9ec_1x400.png");
+    background-repeat: repeat-x;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    color: #000;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
@@ -188,18 +191,27 @@ ul#menu li a {
 }
 
 ul#menu li a:hover {
-    background-color: #fff;
+    background-image: url("images/ui-bg_inset-hard_100_fcfdfd_1x100.png");
+    background-repeat: repeat-x;
+    background-position-x: 50%;
+    background-position-y: 50%;
     text-decoration: none;
 }
 
 ul#menu li a:active {
-    background-color: #a6e2a6;
+    background-image: url("images/ui-bg_gloss-wave_50_6eac2c_500x100.png");
+    background-repeat: repeat-x;
+    background-position-x: 50%;
+    background-position-y: 50%;
     text-decoration: none;
 }
 
 ul#menu li.selected a {
-    background-color: #fff;
-    color: #000;
+    background-image: url("images/ui-bg_gloss-wave_50_6eac2c_500x100.png");
+    background-repeat: repeat-x;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    color: #fff;
 }
 
 /* FORM LAYOUT ELEMENTS   
