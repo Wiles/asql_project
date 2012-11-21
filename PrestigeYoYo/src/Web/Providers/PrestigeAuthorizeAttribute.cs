@@ -24,7 +24,12 @@ namespace Prestige
         {
             if (!base.AuthorizeCore(httpContext))
             {
-                throw new HttpException(403, "You are not authorized to access this page.");
+                if (httpContext.Session["username"] != null)
+                {
+                    throw new HttpException(403, "You are not authorized to access this page.");
+                }
+
+                return false;
             }
 
             return true;

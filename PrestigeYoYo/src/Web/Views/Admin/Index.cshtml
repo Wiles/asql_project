@@ -15,6 +15,7 @@
 </style>
 
 <script type="text/javascript">
+    var gridObject;
     $(function () {
         $("#rolesBtn")
             .click(function () {
@@ -26,6 +27,12 @@
             });
             
         $("#btn").buttonset();
+        
+        $(window).resize(function () {
+            if (gridObject) {
+                gridObject.jqGrid("setGridWidth", $("#gridWrapper").width(), true);
+            }
+        });
     });
 </script>
 
