@@ -10,6 +10,7 @@
             url: "@Url.Action("Data", "Stations")",
             datatype: "json",
             mtype: "POST",
+            hidegrid: false,
 
             editurl: "@Url.Action("Edit", "Stations")",
 
@@ -67,11 +68,12 @@
                 {}, // settings for delete
                 { sopt: ["cn"] } // Search options. Some options can be set on column level
         );
-
+        
+        $("#stationsTable").jqGrid("setGridWidth", $("#gridWrapper").width(), true);
     });
 </script>
 
-<div>
+<div id="gridWrapper">
     <table id="stationsTable" class="scroll"></table>
     <div id="stationsTablePager"></div>
 </div>

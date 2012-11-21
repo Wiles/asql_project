@@ -23,6 +23,7 @@ namespace Prestige.Web
             Bind<IUserRepository>().To<UserRepository>();
             Bind<IProductFlawRepository>().To<ProductFlawRepository>();
             Bind<IProductionStationRepository>().To<ProductionStationRepository>();
+            Bind<IRoleRepository>().To<RoleRepository>();
         }
     }
 }

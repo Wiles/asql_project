@@ -1,5 +1,43 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "User Administration";
 }
 
-<h2>Administration</h2>
+<style type="text/css">
+    .ui-jqdialog-titlebar,
+    .ui-jqgrid-titlebar
+    {
+        height: 15px;
+    }    
+    #toolbar {
+        padding: 5px;
+        margin-bottom:10px;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $("#rolesBtn")
+            .click(function () {
+                $("#container").load("@Url.Action("RolesGrid", "Admin")");
+            });
+        $("#passwordsBtn")
+            .click(function () {
+                $("#container").load("@Url.Action("PasswordGrid", "Admin")");
+            });
+            
+        $("#btn").buttonset();
+    });
+</script>
+
+<h2>User Administration</h2>
+
+<span id="toolbar" class="ui-widget-header ui-corner-all" style="display:inline-block;">
+    <span id="btn">
+        <input type="radio" id="rolesBtn" name="btn" checked="checked" /><label for="rolesBtn">Roles</label>
+        <input type="radio" id="passwordsBtn" name="btn" /><label for="passwordsBtn">Passwords</label>
+    </span>
+</span>
+
+<div id="container">
+    @Html.Action("RolesGrid", "Admin")
+</div>

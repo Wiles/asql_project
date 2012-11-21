@@ -30,7 +30,7 @@ namespace Prestige.DB
                 {
                     UserName = "root",
                     Password = "63a9f0ea7bb98050796b649e85481845",
-                    Roles = new Collection<Role>() { user, admin }
+                    Roles = new Collection<Role>() { admin }
                 },
                 new User()
                 {

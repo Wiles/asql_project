@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using Prestige.DB.Models;
 using Prestige.ViewModels;
+using System.Text;
 
 namespace Prestige.Web
 {
@@ -20,6 +21,12 @@ namespace Prestige.Web
 
             Mapper.CreateMap<ProductionStation, StationListModel>()
                 .ForMember(m => m.Guid, mo => mo.MapFrom(s => s.Id));
+
+            Mapper.CreateMap<User, UserListModel>()
+                .ForMember(m => m.Guid, mo => mo.MapFrom(u => u.Id))
+                .ForMember(m => m.Password, mo => mo.MapFrom(u => ""))
+                .ForMember(m => m.Roles, mo => mo.MapFrom(
+                        u => string.Join(", ", u.Roles.Select(r => r.Name))));
         }
     }
 }
