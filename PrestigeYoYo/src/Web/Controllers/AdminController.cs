@@ -116,8 +116,14 @@ namespace Prestige.Controllers
         /// <param name="guid">The user id.</param>
         /// <returns>Empty result.</returns>
         [HttpPost]
-        public ActionResult Password(string guid)
+        public ActionResult Password(string guid, string password)
         {
+            Guid id;
+            if (Guid.TryParse(guid, out id))
+            {
+                this.UserService.ChangePassword(id, password);
+            }
+
             return new EmptyResult();
         }
 

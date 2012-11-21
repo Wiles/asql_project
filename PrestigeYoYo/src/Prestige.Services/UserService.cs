@@ -73,7 +73,7 @@ using System.Collections.Generic;
             var user = this.UserRepository.FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
-                user.Password = GetHash(user.Password);
+                user.Password = GetHash(password);
                 this.UserRepository.SaveChanges();
             }
         }
