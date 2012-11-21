@@ -31,7 +31,8 @@
                 index: "UserName",
                 align: "left",
                 required: true,
-                editable: true
+                editable: true,
+                editrules: { required: true }
             },
             {
                 name: "Password",
@@ -40,7 +41,8 @@
                 edithidden: true,
                 hidden: true,
                 required: true,
-                editable: true
+                editable: true,
+                editrules: { required: true }
             },
             {
                 name: "Role",
@@ -48,7 +50,8 @@
                 align: "left",
                 editable: true,
                 edittype: "select",
-                editoptions: { value: "User:User;Administrator:Administrator" }
+                editoptions: { value: "User:User;Administrator:Administrator" },
+                editrules: { required: true }
             }
             ],
 
@@ -75,6 +78,7 @@
                     viewPagerButtons: false,
                     afterShowForm: function(formid) {
                         $("#tr_Password").hide();
+                        $("#Password").val("password");
                         $("#UserName").attr("readonly", "readonly");
                         $("#Role").focus();
                     }
