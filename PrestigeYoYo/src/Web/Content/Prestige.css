@@ -82,11 +82,20 @@ page width. Or, you can specify an exact pixel width. */
     margin-right: auto;
 }
 
-header, #header {
+header, #header 
+{
+    margin-top: -2px;
     margin-bottom: 0px;
     color: White;
-    background-color: #5c87b2;
-    padding: 0 40 0 40;
+    background-image:url('images/ui-bg_gloss-wave_75_2191c0_500x100.png');
+    background-attachment: scroll;
+    background-repeat:repeat-x;
+    background-position-x: 50%;
+    background-position-y: bottom;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    padding: 0px;
 }
 
 header h1, #header h1 {
@@ -110,8 +119,19 @@ header h1, #header h1 {
 }
 
 footer, 
-#footer {
+#footer 
+{
     background-color: Black;
+    /*
+    background-image:url('images/ui-bg_glass_45_0078ae_1x400.png');
+    background-attachment: scroll;
+    background-repeat:repeat-x;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    */
     bottom: 0px;
     left:0px;
     right:0px;
@@ -120,8 +140,17 @@ footer,
     padding: 10px 0px 10px 0px;
     text-align: center;
     line-height: normal;
-    margin: 0;
+    margin: 0px 0xp 0px 0px;
     font-size: .9em;
+    border-top: 1px solid black;
+}
+
+footer a,
+#footer a,
+footer a:visited,
+#footer a:visited
+{
+    color:White !important;
 }
 
 /* TAB MENU   

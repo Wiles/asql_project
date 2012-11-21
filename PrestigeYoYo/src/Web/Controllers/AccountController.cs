@@ -8,6 +8,7 @@ namespace Prestige.Web.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Prestige.Services;
+    using Prestige.Web.ViewModels;
 
     public class AccountController : Controller
     {
@@ -40,7 +41,7 @@ namespace Prestige.Web.Controllers
         /// <returns></returns>
         public ActionResult LogOn()
         {
-            return View();
+            return View(new LoginViewModel());
         }
 
         /// <summary>
@@ -63,7 +64,11 @@ namespace Prestige.Web.Controllers
                 return Redirect(Request.QueryString["ReturnUrl"] ?? "/Report/Index");
             }
 
-            return View((object)username);
+            var model = new LoginViewModel();
+            model.UserName = username;
+            model.RememberMe = remember == "on";
+            model.Error = "Invalid username/password.";
+            return View(model);
         }
 
         /// <summary>

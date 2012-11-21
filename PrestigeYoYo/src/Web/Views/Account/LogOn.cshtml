@@ -1,6 +1,7 @@
-﻿@model string
+﻿@model Prestige.Web.ViewModels.LoginViewModel
 @{
     ViewBag.Title = "LogOn";
+    var remember = Model.RememberMe ? "checked='checked'" : "";
 }
 
 <script type="text/javascript">
@@ -15,7 +16,7 @@
 <div style="border:2px solid black;padding:5px 5px 5px 5px;display:inline-block;">
     <div style="margin:5px 5px 5px 5px;">
         <span style="width:100px;display:inline-block;">Username:</span>
-        <input type="text" value="@Model" name="username" />
+        <input type="text" value="@Model.UserName" name="username" />
     </div>
 
     <div style="margin:5px 5px 5px 5px;">
@@ -25,8 +26,9 @@
 
     <div style="margin:5px 5px 5px 5px;">
         <span style="width:100px;display:inline-block;"></span>
-        <input type="checkbox" name="remember" /><span>Remember Me</span>
+        <input type="checkbox" name="remember" @remember /><span>Remember Me</span>
     </div>
-    <button>Log On</button>
+    <button style='margin-right:20px;'>Log On</button>
+    <span style='color:#f00;'>@Model.Error</span>
 </div>
 }

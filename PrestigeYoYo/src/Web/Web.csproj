@@ -118,6 +118,7 @@
     <Compile Include="Providers\UserServiceFactory.cs" />
     <Compile Include="UrlHelper.cs" />
     <Compile Include="ViewModels\DefectListModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavButtonModel.cs" />
     <Compile Include="ViewModels\ProductListModel.cs" />
     <Compile Include="ViewModels\StationListModel.cs" />
