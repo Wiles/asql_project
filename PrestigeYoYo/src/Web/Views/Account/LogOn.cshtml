@@ -10,18 +10,17 @@
     });
 </script>
 
-<h2>Log On</h2>
 @using (Html.BeginForm())
 {
 <div style="border:2px solid black;padding:5px 5px 5px 5px;display:inline-block;">
     <div style="margin:5px 5px 5px 5px;">
         <span style="width:100px;display:inline-block;">Username:</span>
-        <input type="text" value="@Model.UserName" name="username" />
+        <input style="width:180px"; type="text" value="@Model.UserName" name="username" />
     </div>
 
     <div style="margin:5px 5px 5px 5px;">
         <span style="width:100px;display:inline-block;">Password:</span>
-        <input type="password" name="password" />
+        <input style="width:180px"; type="password" name="password" />
     </div>
 
     <div style="margin:5px 5px 5px 5px;">

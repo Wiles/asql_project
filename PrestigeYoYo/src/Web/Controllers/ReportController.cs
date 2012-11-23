@@ -57,7 +57,7 @@ namespace Prestige.Controllers
         /// <returns>The reports view.</returns>
         public ActionResult Index()
         {
-            ViewBag.Title = "Reports";
+            ViewBag.Title = "Production Reports";
             return View();
         }
     }

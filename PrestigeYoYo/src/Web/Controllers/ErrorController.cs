@@ -19,9 +19,12 @@ namespace Prestige.Web.Controllers
                 code = 500;
             }
 
-            if (code.Value == 403)
+            switch(code)
             {
-                return View("Forbidden");
+                case 403:
+                    return View("Forbidden");
+                case 404:
+                    return View("NotFound");
             }
 
             var model = new Tuple<int, string>(code.Value, message);

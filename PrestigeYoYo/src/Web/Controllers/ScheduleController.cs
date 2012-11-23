@@ -78,7 +78,7 @@ namespace Prestige.Controllers
         {
             var schedule = this.ScheduleService.List().Where(s => s.Product != null).ToArray();
             var products = this.ProductService.List().OrderBy(p => p.SKU).ToArray();
-            ViewBag.Title = "Scheduling";
+            ViewBag.Title = "Product Scheduling";
             return View(
                 new Tuple<
                     IEnumerable<Schedule>,
@@ -94,6 +94,12 @@ namespace Prestige.Controllers
         public ActionResult Editor()
         {
             var user = this.Session["username"] as string;
+
+            if (user == null)
+            {
+                return RedirectToAction("LogOn", "Account", new { error = "Session expired." });
+            }
+
             if (this.UserService.IsUserInRole(user, "Administrator"))
             {
                 var products = this.ProductService.List().OrderBy(p => p.SKU).ToArray();

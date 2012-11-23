@@ -18,7 +18,14 @@
 <body>
     <header>
         <div id="title">
+        @if (ViewBag.Title != null)
+        {
+            <h1>Prestige YoYo &mdash; @ViewBag.Title</h1>
+        }
+        else
+        { 
             <h1>Prestige YoYo</h1>
+        }
         </div>
         <div id="logindisplay">
             @Html.Partial("Logo")

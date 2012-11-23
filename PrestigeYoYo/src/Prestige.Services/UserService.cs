@@ -149,6 +149,11 @@ using System.Collections.Generic;
         /// </returns>
         public bool IsUserInRole(string username, string role)
         {
+            if (username == null || role == null)
+            {
+                return false;
+            }
+
             var low = username.ToLower();
             var user = this.UserRepository.FirstOrDefault(u => u.UserName == low);
             if (user != null)
