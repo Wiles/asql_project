@@ -171,6 +171,7 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Content\ui.jqgrid.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\grid.locale-en.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
