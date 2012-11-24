@@ -24,6 +24,7 @@ namespace Prestige.Web
             Bind<IProductFlawRepository>().To<ProductFlawRepository>();
             Bind<IProductionStationRepository>().To<ProductionStationRepository>();
             Bind<IRoleRepository>().To<RoleRepository>();
+            Bind<IProductionStageRepository>().To<ProductionStageRepository>();
         }
     }
 }

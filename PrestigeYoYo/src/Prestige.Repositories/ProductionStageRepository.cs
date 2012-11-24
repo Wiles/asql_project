@@ -25,7 +25,8 @@ namespace Prestige.Repositories
         private IEnumerable<Type> typesToInclude = new List<Type>()
         {
             typeof(ProductionStation),
-            typeof(ProductFlawType)
+            typeof(ProductFlawType),
+            typeof(ProductionEntry)
         };
 
         /// <summary>
