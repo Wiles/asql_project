@@ -7,24 +7,52 @@
             var start = $("#start option:selected").text();
             var finish = $("#finish option:selected").text();
             var product = $("#product option:selected").text();
-            var msg = "Schedule " + product + "<br />from " + start + " to " + finish + " on " + day + "?";
-            $("#dialog-message").html(msg);
-            $("#dialog-confirm").dialog({
+
+            if (validate(start, finish)) {
+                var msg = "Schedule " + product + "<br />from " + start + " to " + finish + " on " + day + "?";
+                $("#dialog-message").html(msg);
+                $("#dialog-confirm").dialog({
+                    resizable: false,
+                    height: 160,
+                    width: 350,
+                    modal: true,
+                    buttons: {
+                        Schedule: function () {
+                            $("#scheduleForm").submit();
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function validate(start, finish) {
+        var msg;
+        if (start >= finish) {
+            msg = "The finish time must come after the start time.";
+        }
+
+        if (msg) {
+            $("#error-message").html(msg);
+            $("#dialog-error").dialog({
                 resizable: false,
                 height: 160,
-                width:350,
+                width: 350,
                 modal: true,
                 buttons: {
-                    Schedule: function () {
-                        $("#scheduleForm").submit();
-                    },
-                    Cancel: function () {
+                    Close: function () {
                         $(this).dialog("close");
                     }
                 }
             });
-        });
-    });
+            return false;
+        }
+
+        return true;
+    }
 </script>
            
 @using (Html.BeginForm("Edit", "Schedule", FormMethod.Post, new Dictionary<string, object>() { { "id", "scheduleForm" } }))
@@ -116,4 +144,8 @@
 
 <div id="dialog-confirm" title="Confirm Schedule Change">
     <span id="dialog-message"></span>
+</div>
+
+<div id="dialog-error" title="Scheduling Error">
+    <span id="error-message" style="color:Red"></span>
 </div>

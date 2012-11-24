@@ -91,7 +91,7 @@ namespace Prestige.Controllers
         /// Editors this instance.
         /// </summary>
         /// <returns>The editor view.</returns>
-        public ActionResult Editor()
+        public ActionResult Editor(Product[] products)
         {
             var user = this.Session["username"] as string;
 
@@ -102,7 +102,7 @@ namespace Prestige.Controllers
 
             if (this.UserService.IsUserInRole(user, "Administrator"))
             {
-                var products = this.ProductService.List().OrderBy(p => p.SKU).ToArray();
+                //var products = this.ProductService.List().OrderBy(p => p.SKU).ToArray();
                 return PartialView(products);
             }
 
