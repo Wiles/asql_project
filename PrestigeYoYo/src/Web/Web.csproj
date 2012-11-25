@@ -267,6 +267,9 @@
     <Content Include="Views\Admin\RolesGrid.cshtml" />
     <Content Include="Views\Admin\PasswordGrid.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Report\FinalYield.cshtml" />
+    <Content Include="Views\Report\FirstYield.cshtml" />
+    <Content Include="Views\Report\DefectCategories.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
