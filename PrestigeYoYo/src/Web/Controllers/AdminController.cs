@@ -93,7 +93,7 @@ namespace Prestige.Controllers
         public ActionResult Edit(string guid, string username, string role)
         {
             if (username != "root"
-                    && username != this.Session["username"] as string)
+                    && username != this.User.Identity.Name as string)
             {
                 Guid id;
                 if (Guid.TryParse(guid, out id))
@@ -143,7 +143,7 @@ namespace Prestige.Controllers
 
                 if (user != null
                     && user.UserName != "root"
-                    && user.UserName != this.Session["username"] as string)
+                    && user.UserName != this.User.Identity.Name as string)
                 {
                     this.UserService.Delete(user);
                 }
