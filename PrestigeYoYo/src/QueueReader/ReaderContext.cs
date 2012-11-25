@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Messaging;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Configuration;
-using Prestige.Services;
-using Prestige.Repositories;
-using Prestige.DB;
-using Prestige.DB.Models;
-using System.Data.Entity;
-using System.Threading;
-using System.Collections.ObjectModel;
+﻿///
+///
+///
 
 namespace QueueReader
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Configuration;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Messaging;
+    using System.Windows.Forms;
+
+    using Prestige.DB;
+    using Prestige.DB.Models;
+    using Prestige.Repositories;
+    using Prestige.Services;
+    using System.Drawing;
+    using System.Threading;
+
     public class ReaderContext : ApplicationContext
     {
         /// <summary>
@@ -79,7 +81,7 @@ namespace QueueReader
             this.Icon.ContextMenu.MenuItems.Add(this.MenuStop);
             this.Icon.ContextMenu.MenuItems.Add("-");
             this.Icon.ContextMenu.MenuItems.Add(close);
-            this.Icon.Icon = System.Drawing.SystemIcons.Shield;
+            this.Icon.Icon = new Icon("yoyo.ico");
             this.Icon.Text = this.DisplayText + " - Running...";
             this.Icon.Visible = true;
         }
@@ -209,6 +211,9 @@ namespace QueueReader
         /// </param>
         private void Close_Click(object sender, EventArgs e)
         {
+            // wait a bit, to let any running queue reading finish...
+            this.IsRunning = false;
+            Thread.Sleep(1000);
             this.ExitThread();
         }
 
