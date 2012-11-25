@@ -93,12 +93,7 @@ namespace Prestige.Controllers
         /// <returns>The editor view.</returns>
         public ActionResult Editor(Product[] products)
         {
-            var user = this.Session["username"] as string;
-
-            if (user == null)
-            {
-                return RedirectToAction("LogOn", "Account", new { error = "Session expired." });
-            }
+            var user = this.User.Identity.Name as string;
 
             if (this.UserService.IsUserInRole(user, "Administrator"))
             {

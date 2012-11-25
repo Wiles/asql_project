@@ -67,7 +67,6 @@ namespace Prestige.Web.Controllers
             if (this.Service.Authenticate(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, remember == "on");
-                this.Session.Add("username", username);
                 return Redirect(Request.QueryString["ReturnUrl"] ?? "/Report/Index");
             }
 
@@ -85,7 +84,6 @@ namespace Prestige.Web.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            this.Session.Remove("username");
             return RedirectToAction("LogOn");
         }
     }

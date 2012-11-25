@@ -1,6 +1,6 @@
 ﻿
-@{ var username = Session["username"]; }
-@if (username == null)
+@{ var username = this.User.Identity.Name; }
+@if (string.IsNullOrWhiteSpace(username))
 {
 <text>Welcome.  @Html.ActionLink("Log On", "LogOn", "Account")</text>
 }

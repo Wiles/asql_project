@@ -24,7 +24,7 @@ namespace Prestige
         {
             if (!base.AuthorizeCore(httpContext))
             {
-                if (httpContext.Session["username"] != null)
+                if (!string.IsNullOrWhiteSpace(httpContext.User.Identity.Name))
                 {
                     throw new HttpException(
                             403,
