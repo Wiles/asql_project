@@ -11,6 +11,7 @@ using System.Linq;
 using Prestige.DB.Models;
 using System.Collections;
 using System.Collections.Generic;
+using Prestige.ViewModels;
 
 namespace Prestige.Controllers
 {
@@ -83,20 +84,7 @@ namespace Prestige.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Production Reports";
-
-            DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
-            .SetXAxis(new XAxis
-            {
-                Categories = new[] { "Jan", "Feb", "Mar", "Apr", "May", 
-                    "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-            })
-            .SetSeries(new Series
-            {
-                Data = new Data(new object[] { 29.9, 71.5, 106.4, 129.2, 
-                    144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 })
-            });
-
-            return View(chart);
+            return View(new ReportSelectModel());
         }
 
         public ActionResult FirstYield()
@@ -236,7 +224,7 @@ namespace Prestige.Controllers
                     Name = "Count",
                     Color = ColorTranslator.FromHtml("#4572A7"),
                     Type = ChartTypes.Column,
-                    YAxis = 1,
+                    YAxis = 0,
                     Data = new Data(barValues.Cast<object>().ToArray())
                 },
                 new Series
@@ -244,6 +232,7 @@ namespace Prestige.Controllers
                     Name = "Defect Categories",
                     Color = ColorTranslator.FromHtml("#89A54E"),
                     Type = ChartTypes.Spline,
+                    YAxis = 0,
                     Data = new Data(linesValues.Cast<object>().ToArray())
                 }
             });

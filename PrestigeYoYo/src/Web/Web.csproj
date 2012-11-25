@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavButtonModel.cs" />
     <Compile Include="ViewModels\ProductListModel.cs" />
+    <Compile Include="ViewModels\ReportSelectModel.cs" />
     <Compile Include="ViewModels\StationListModel.cs" />
     <Compile Include="ViewModels\UserListModel.cs" />
   </ItemGroup>
