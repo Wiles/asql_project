@@ -16,7 +16,8 @@ and boom, its generates
 
 <script type="text/javascript">
     $(function () {
-        var defaultColor = $("#startDate").css("border-color");
+        var defaultBackColor = $("#startDate").css("border-color");
+        var defaultColor = $("#startDate").css("background-color");
 
         $(".datetime-picker").datetimepicker({
             stepMinute: 15
@@ -44,25 +45,31 @@ and boom, its generates
             // TODO: validate inputs
             if (!startDate) {
                 $("#startDate").css("border-color", "red");
+                $("#startDate").css("background-color", "#ffdddd");
                 $("#startDate").attr("title", "You must enter a start date");
             } else {
-                $("#startDate").css("border-color", defaultColor);
+                $("#startDate").css("border-color", defaultBackColor);
+                $("#startDate").css("background-color", defaultColor);
                 $("#startDate").attr("title", "");
             }
 
             if (!endDate) {
                 $("#endDate").css("border-color", "red");
+                $("#endDate").css("background-color", "#ffdddd");
                 $("#endDate").attr("title", "You must enter an end date");
             } else {
-                $("#endDate").css("border-color", defaultColor);
+                $("#endDate").css("border-color", defaultBackColor);
+                $("#endDate").css("background-color", defaultColor);
                 $("#endDate").attr("title", "");
             }
 
             if (startDate && endDate) {
                 if (startDate < endDate) {
-                    $("#startDate").css("border-color", defaultColor);
+                    $("#startDate").css("border-color", defaultBackColor);
+                    $("#startDate").css("background-color", defaultColor);
                     $("#startDate").attr("title", "");
-                    $("#endDate").css("border-color", defaultColor);
+                    $("#endDate").css("border-color", defaultBackColor);
+                    $("#endDate").css("background-color", defaultColor);
                     $("#endDate").attr("title", "");
 
                     $("#loader").show();
@@ -81,8 +88,10 @@ and boom, its generates
                         });
                 } else {
                     $("#startDate").css("border-color", "red");
+                    $("#startDate").css("background-color", "#ffdddd");
                     $("#startDate").attr("title", "The start date must be before the end date");
                     $("#endDate").css("border-color", "red");
+                    $("#endDate").css("background-color", "#ffdddd");
                     $("#endDate").attr("title", "The end date must be before the start date");
                 }
             }

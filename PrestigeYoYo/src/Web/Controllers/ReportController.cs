@@ -170,6 +170,12 @@ using Prestige.DB.Models;
             return ret as ActionResult;
         }
 
+        /// <summary>
+        /// Filters production stages by the report model.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="model">The model.</param>
+        /// <returns>Filtered queryable.</returns>
         private IQueryable<ProductionStage> FilterStages(IQueryable<ProductionStage> list, GenerateReportModel model)
         {
             list = list.Where(s => s.TimeStamp > model.StartDate && s.TimeStamp < model.EndDate);
