@@ -1,20 +1,22 @@
-﻿using System;
-using System.Web.Mvc;
-using AutoMapper;
-using Prestige.Services;
-using DotNet.Highcharts.Options;
-using DotNet.Highcharts.Helpers;
-using DotNet.Highcharts.Enums;
-using System.Drawing;
-using DotNet.Highcharts;
-using System.Linq;
-using Prestige.DB.Models;
-using System.Collections;
-using System.Collections.Generic;
-using Prestige.ViewModels;
+﻿///
+///
+///
 
 namespace Prestige.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Web.Mvc;
+    using AutoMapper;
+    using DotNet.Highcharts;
+    using DotNet.Highcharts.Enums;
+    using DotNet.Highcharts.Helpers;
+    using DotNet.Highcharts.Options;
+    using Prestige.Services;
+    using Prestige.ViewModels;
+
     /// <summary>
     /// Class for managing Home requests.
     /// </summary>
@@ -37,13 +39,11 @@ namespace Prestige.Controllers
             {
                 throw new ArgumentNullException("productService");
             }
-
-            if (productionStageService == null)
+            else if (productionStageService == null)
             {
                 throw new ArgumentNullException("productionStageService");
             }
-
-            if (entryService == null)
+            else if (entryService == null)
             {
                 throw new ArgumentNullException("entryService");
             }
@@ -78,15 +78,49 @@ namespace Prestige.Controllers
         private IProductionEntryService EntryService { get; set; }
 
         /// <summary>
+        /// Gets a list of available report types.
+        /// </summary>
+        /// <returns>List of report types.</returns>
+        private static IEnumerable<ReportTypeModel> ReportTypes()
+        {
+            var list = new List<ReportTypeModel>();
+
+            foreach (var method in typeof(ReportController).GetMethods())
+            {
+                var attrs = method.GetCustomAttributes(typeof(ReportMethodAttribute), true);
+                if (attrs.Any())
+                {
+                    var attr = attrs[0] as ReportMethodAttribute;
+                    list.Add(new ReportTypeModel(method.Name, attr.Name));
+                }
+            }
+
+            return list;
+        }
+        
+        /// <summary>
         /// Index view.
         /// </summary>
         /// <returns>The reports view.</returns>
         public ActionResult Index()
         {
             ViewBag.Title = "Production Reports";
-            return View(new ReportSelectModel());
+
+            var model = new ReportSelectModel();
+            model.ReportTypes = ReportTypes();
+            model.Products = this.ProductService.List().OrderBy(p => p.Description).ToList();
+            model.WorkAreas = this.ProductionStageService.List()
+                                        .Select(p => p.WorkArea).Distinct();
+
+            return View(model);
         }
 
+        public ActionResult Report()
+        {
+            return new EmptyResult();
+        }
+
+        [ReportMethod("First Yield")]
         public ActionResult FirstYield()
         {
             ViewBag.Title = "First Time Yield Report";
@@ -98,15 +132,18 @@ namespace Prestige.Controllers
                     .OrderBy(g => g.Count())
                     .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
                     .ToArray();
-
-            return View(PieChart("First Time Yields", "Station First Time Yields", results));
+            
+            return PartialView(PieChart("First Time Yields", "Station First Time Yields", results));
         }
 
+        [ReportMethod("Final Yield")]
         public ActionResult FinalYield()
         {
             ViewBag.Title = "Final Yield Report";
 
-            var results = EntryService.List().ToArray().AsQueryable()
+            var list = EntryService.List().ToArray().AsQueryable();
+
+            var results = list
                     .Where(e => !e.Stages.Any(s => s.ProductFlaw != null && s.ProductFlaw.Decision != "Rework"))
                     .SelectMany(e => e.Stages)
                     .GroupBy(e => e.Station)
@@ -114,9 +151,16 @@ namespace Prestige.Controllers
                     .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
                     .ToArray();
 
-            return View(PieChart("First Time Yields", "Station First Time Yields", results));
+            return PartialView(PieChart("First Time Yields", "Station First Time Yields", results));
         }
 
+        /// <summary>
+        /// Creates a pie chart.
+        /// </summary>
+        /// <param name="chartName">Name of the chart.</param>
+        /// <param name="axisName">Name of the axis.</param>
+        /// <param name="results">The results.</param>
+        /// <returns>A chart object.</returns>
         private Highcharts PieChart(string chartName, string axisName, object[] results)
         {
             Highcharts chart = new Highcharts("chart")
@@ -147,6 +191,7 @@ namespace Prestige.Controllers
             return chart;
         }
 
+        [ReportMethod("Defect Occurrence")]
         public ActionResult DefectCategories()
         {
             ViewBag.Title = "Defect Categories Report";
@@ -156,7 +201,7 @@ namespace Prestige.Controllers
                 .Where(s => s.ProductFlaw != null)
                 .GroupBy(s => s.ProductFlaw)
                 .OrderByDescending(g => g.Count())
-                .Select(g => new { Name = g.Key.Identifier, NumberOfDefects = g.Count() })
+                .Select(g => new { Name = g.Key.Reason, NumberOfDefects = g.Count() })
                 .ToArray();
 
             var barValues = defectCategories.Select(d => d.NumberOfDefects);
@@ -237,7 +282,7 @@ namespace Prestige.Controllers
                 }
             });
 
-            return View(chart);
+            return PartialView(chart);
         }
     }
 }

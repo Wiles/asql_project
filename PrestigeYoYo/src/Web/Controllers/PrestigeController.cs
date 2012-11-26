@@ -1,9 +1,13 @@
-﻿using System;
-using System.Web.Mvc;
-using AutoMapper;
+﻿///
+///
+///
 
 namespace Prestige.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using AutoMapper;
+
     [PrestigeAuthorize]
     public class PrestigeController : Controller
     {

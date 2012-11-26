@@ -106,6 +106,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
+    <Compile Include="Ext\ReportMethodAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -126,10 +127,12 @@
     <Compile Include="ViewModels\NavButtonModel.cs" />
     <Compile Include="ViewModels\ProductListModel.cs" />
     <Compile Include="ViewModels\ReportSelectModel.cs" />
+    <Compile Include="ViewModels\ReportTypeModel.cs" />
     <Compile Include="ViewModels\StationListModel.cs" />
     <Compile Include="ViewModels\UserListModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\tb404.png" />
     <Content Include="Content\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_aaaaaa_40x100.png" />

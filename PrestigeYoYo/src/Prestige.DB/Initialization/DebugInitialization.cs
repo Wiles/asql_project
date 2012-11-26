@@ -232,12 +232,6 @@ namespace Prestige.DB
                     Decision = "Rework",
                     Reason = "Tangled string",
                     Identifier = "TANGLED_STRING"
-                },
-                new ProductFlawType()
-                {
-                    Decision = "Rework",
-                    Reason = "Final coat flaw",
-                    Identifier = "FINAL_COAT_FLAW"
                 }
             };
 
