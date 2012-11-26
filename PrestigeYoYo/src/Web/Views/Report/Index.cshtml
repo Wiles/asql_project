@@ -16,20 +16,76 @@ and boom, its generates
 
 <script type="text/javascript">
     $(function () {
+        var defaultColor = $("#startDate").css("border-color");
+
         $(".datetime-picker").datetimepicker({
             stepMinute: 15
         });
 
-        $("#btnGenerate").button().click(function () {
-            // validate inputs, load chart...
-            
-            $("#loader").show();
-
-            $("#chartContainer").load(
-                "@Url.Action("DefectCategories", "Report")",
-                function () {
-                    $("#loader").hide();
+        $("#workArea").change(function () {
+            $("#line").load(
+                "@Url.Action("LinesOptions", "Report")",
+                {
+                    workArea: $("#workArea").val()
                 });
+        });
+
+        $("#btnGenerate").button().click(function () {
+            var report = $("#reportType").val();
+            var start = $("#startDate").val();
+            var end = $("#endDate").val();
+            var product = $("#product").val();
+            var workArea = $("#workArea").val();
+            var line = $("#line").val();
+
+            var startDate = Date.parse(start);
+            var endDate = Date.parse(end);
+
+            // TODO: validate inputs
+            if (!startDate) {
+                $("#startDate").css("border-color", "red");
+                $("#startDate").attr("title", "You must enter a start date");
+            } else {
+                $("#startDate").css("border-color", defaultColor);
+                $("#startDate").attr("title", "");
+            }
+
+            if (!endDate) {
+                $("#endDate").css("border-color", "red");
+                $("#endDate").attr("title", "You must enter an end date");
+            } else {
+                $("#endDate").css("border-color", defaultColor);
+                $("#endDate").attr("title", "");
+            }
+
+            if (startDate && endDate) {
+                if (startDate < endDate) {
+                    $("#startDate").css("border-color", defaultColor);
+                    $("#startDate").attr("title", "");
+                    $("#endDate").css("border-color", defaultColor);
+                    $("#endDate").attr("title", "");
+
+                    $("#loader").show();
+                    $("#chartContainer").load(
+                        "@Url.Action("GenerateReport", "Report")",
+                        {
+                            reportType: report,
+                            startDate: start,
+                            endDate: end,
+                            productId: product,
+                            workArea: workArea,
+                            line: line
+                        },
+                        function () {
+                            $("#loader").hide();
+                        });
+                } else {
+                    $("#startDate").css("border-color", "red");
+                    $("#startDate").attr("title", "The start date must be before the end date");
+                    $("#endDate").css("border-color", "red");
+                    $("#endDate").attr("title", "The end date must be before the start date");
+                }
+            }
         });
     });
 </script>
@@ -70,14 +126,14 @@ and boom, its generates
         <label for="StartDate">Start Date:</label>
     </div>
     <div>
-        <input name="StartDate" type="text" class="datetime-picker field-value" />
+        <input name="StartDate" id="startDate" type="text" readonly="readonly" class="datetime-picker field-value" />
     </div>
 
     <div>
         <label for="EndDate">End Date:</label>
     </div>
     <div>
-        <input name="EndDate" id="endDate" type="text" class="datetime-picker field-value" />
+        <input name="EndDate" id="endDate" type="text" readonly="readonly" class="datetime-picker field-value" />
     </div>
 
     <div>

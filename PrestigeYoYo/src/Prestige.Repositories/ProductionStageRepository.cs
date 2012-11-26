@@ -37,9 +37,12 @@ namespace Prestige.Repositories
         public ProductionStageRepository(DbContext context)
             : base(context)
         {
-            propertiesToInclude = new List<string>();
+            propertiesToInclude = new List<string>()
+                {
+                    "ProductionEntry.Product"
+                };
 
-            foreach (var property in typeof(Product).GetProperties())
+            foreach (var property in typeof(ProductionStage).GetProperties())
             {
                 foreach (var type in typesToInclude)
                 {

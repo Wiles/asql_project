@@ -16,6 +16,8 @@ namespace Prestige.Controllers
     using DotNet.Highcharts.Options;
     using Prestige.Services;
     using Prestige.ViewModels;
+    using System.Text;
+using Prestige.DB.Models;
 
     /// <summary>
     /// Class for managing Home requests.
@@ -115,96 +117,140 @@ namespace Prestige.Controllers
             return View(model);
         }
 
-        public ActionResult Report()
+        /// <summary>
+        /// Gets the lines specific to a work area.
+        /// </summary>
+        /// <param name="workArea">The work area.</param>
+        /// <returns>The lines options.</returns>
+        public ActionResult LinesOptions(string workArea)
         {
-            return new EmptyResult();
-        }
+            var lines = this.ProductionStageService.List()
+                            .Where(s => s.WorkArea == workArea)
+                            .Select(s => s.LineNumber)
+                            .Distinct()
+                            .ToList();
 
-        [ReportMethod("First Yield")]
-        public ActionResult FirstYield()
-        {
-            ViewBag.Title = "First Time Yield Report";
+            var sb = new StringBuilder("<option value=''>All</option>");
+            foreach (var line in lines.OrderBy(i => i))
+            {
+                sb.Append(string.Format("<option value='{0}'>{0}</option>", line));
+            }
 
-            var results = EntryService.List().ToArray().AsQueryable()
-                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null))
-                    .SelectMany(e => e.Stages)
-                    .GroupBy(e => e.Station)
-                    .OrderBy(g => g.Count())
-                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
-                    .ToArray();
-            
-            return PartialView(PieChart("First Time Yields", "Station First Time Yields", results));
-        }
-
-        [ReportMethod("Final Yield")]
-        public ActionResult FinalYield()
-        {
-            ViewBag.Title = "Final Yield Report";
-
-            var list = EntryService.List().ToArray().AsQueryable();
-
-            var results = list
-                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null && s.ProductFlaw.Decision != "Rework"))
-                    .SelectMany(e => e.Stages)
-                    .GroupBy(e => e.Station)
-                    .OrderBy(g => g.Count())
-                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
-                    .ToArray();
-
-            return PartialView(PieChart("First Time Yields", "Station First Time Yields", results));
+            return Content(sb.ToString());
         }
 
         /// <summary>
-        /// Creates a pie chart.
+        /// Generates the report.
         /// </summary>
-        /// <param name="chartName">Name of the chart.</param>
-        /// <param name="axisName">Name of the axis.</param>
-        /// <param name="results">The results.</param>
-        /// <returns>A chart object.</returns>
-        private Highcharts PieChart(string chartName, string axisName, object[] results)
+        /// <param name="reportType">Type of the report.</param>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <param name="product">The product.</param>
+        /// <param name="workArea">The work area.</param>
+        /// <param name="line">The line.</param>
+        /// <returns>The report view.</returns>
+        public ActionResult GenerateReport(
+                string reportType,
+                DateTime startDate,
+                DateTime endDate,
+                Guid? productId,
+                string workArea,
+                int? line)
         {
-            Highcharts chart = new Highcharts("chart")
-                .InitChart(new Chart { PlotShadow = false })
-                .SetTitle(new Title { Text = chartName })
-                .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %'; }" })
-                .SetPlotOptions(new PlotOptions
-                {
-                    Pie = new PlotOptionsPie
-                    {
-                        AllowPointSelect = true,
-                        Cursor = Cursors.Pointer,
-                        DataLabels = new PlotOptionsPieDataLabels
-                        {
-                            Color = ColorTranslator.FromHtml("#000000"),
-                            ConnectorColor = ColorTranslator.FromHtml("#000000"),
-                            Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %'; }"
-                        }
-                    }
-                })
-                .SetSeries(new Series
-                {
-                    Type = ChartTypes.Pie,
-                    Name = axisName,
-                    Data = new Data(results)
-                });
+            var model = new GenerateReportModel();
+            model.StartDate = startDate;
+            model.EndDate = endDate;
+            model.Line = line;
+            model.ProductId = productId;
+            model.WorkArea = workArea;
 
-            return chart;
+            var method = typeof(ReportController).GetMethod(reportType);
+            var ret = method.Invoke(this, new object[] { model });
+
+            return ret as ActionResult;
         }
 
-        [ReportMethod("Defect Occurrence")]
-        public ActionResult DefectCategories()
+        private IQueryable<ProductionStage> FilterStages(IQueryable<ProductionStage> list, GenerateReportModel model)
         {
-            ViewBag.Title = "Defect Categories Report";
+            list = list.Where(s => s.TimeStamp > model.StartDate && s.TimeStamp < model.EndDate);
+
+            if (model.ProductId.HasValue)
+            {
+                list = list.Where(s => s.ProductionEntry.Product.Id == model.ProductId);
+            }
+
+            if (!string.IsNullOrEmpty(model.WorkArea))
+            {
+                list = list.Where(s => s.WorkArea == model.WorkArea);
+                if (model.Line.HasValue)
+                {
+                    var i = model.Line.Value;
+                    list.Where(s => s.LineNumber == i);
+                }
+            }
+
+            return list;
+        }
+
+        #region Report Action Methods
+
+        /// <summary>
+        /// Generates the first yield report.
+        /// </summary>
+        /// <returns>The first yield report view.</returns>
+        [ReportMethod("First Yield")]
+        public ActionResult FirstYield(GenerateReportModel model)
+        {
+            var list = EntryService.List()
+                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null))
+                    .SelectMany(e => e.Stages);
+
+            var results = this.FilterStages(list, model)
+                    .GroupBy(e => e.Station)
+                    .OrderBy(g => g.Count())
+                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
+                    .ToArray();
+
+            return PartialView("FirstYield", ChartHelper.PieChart("First Time Yields", "Station First Time Yields", results));
+        }
+
+        /// <summary>
+        /// Generates the final yield report.
+        /// </summary>
+        /// <returns>The final yield report view.</returns>
+        [ReportMethod("Final Yield")]
+        public ActionResult FinalYield(GenerateReportModel model)
+        {
+            var list = EntryService.List()
+                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null && s.ProductFlaw.Decision != "Rework"))
+                    .SelectMany(e => e.Stages);
+
+            var results = this.FilterStages(list, model)
+                    .GroupBy(e => e.Station)
+                    .OrderBy(g => g.Count())
+                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
+                    .ToArray();
+
+            return PartialView("FinalYield", ChartHelper.PieChart("Final Yields", "Station Final Yields", results));
+        }
+
+        /// <summary>
+        /// Generates the defects categories report.
+        /// </summary>
+        /// <returns>The defects categories report view.</returns>
+        [ReportMethod("Defect Occurrence")]
+        public ActionResult DefectCategories(GenerateReportModel model)
+        {
+            var list = this.ProductionStageService.List();
             
-            var defectCategories = EntryService.List().ToArray().AsQueryable()
-                .SelectMany(s => s.Stages)
+            var defectCategories = this.FilterStages(list, model)
                 .Where(s => s.ProductFlaw != null)
                 .GroupBy(s => s.ProductFlaw)
                 .OrderByDescending(g => g.Count())
-                .Select(g => new { Name = g.Key.Reason, NumberOfDefects = g.Count() })
+                .Select(g => new { Name = g.Key.Reason, Count = g.Count() })
                 .ToArray();
 
-            var barValues = defectCategories.Select(d => d.NumberOfDefects);
+            var barValues = defectCategories.Select(d => d.Count);
 
             var linesValues = new List<int>();
             foreach (var num in barValues)
@@ -282,7 +328,9 @@ namespace Prestige.Controllers
                 }
             });
 
-            return PartialView(chart);
+            return PartialView("DefectCategories", chart);
         }
+
+        #endregion
     }
 }
