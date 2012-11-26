@@ -17,6 +17,7 @@ namespace Prestige.Web
         /// </summary>
         public override void Load()
         {
+            // bind repository contracts to implementations
             Bind<IProductRepository>().To<ProductRepository>();
             Bind<IScheduleRepository>().To<ScheduleRepository>();
             Bind<IProductionEntryRepository>().To<ProductionEntryRepository>();

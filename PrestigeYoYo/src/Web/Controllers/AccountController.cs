@@ -64,12 +64,17 @@ namespace Prestige.Web.Controllers
                 string password,
                 string remember)
         {
+            // check authentication
             if (this.Service.Authenticate(username, password))
             {
+                // redirect to target, or /
                 FormsAuthentication.SetAuthCookie(username, remember == "on");
-                return Redirect(Request.QueryString["ReturnUrl"] ?? "/Report/Index");
+                return Redirect(
+                            Request.QueryString["ReturnUrl"] ??
+                                        Url.Action("Index", "Report"));
             }
 
+            // bad username/password, return with error
             var model = new LoginViewModel();
             model.UserName = username;
             model.RememberMe = remember == "on";
@@ -83,6 +88,7 @@ namespace Prestige.Web.Controllers
         /// <returns>Redirect to log on.</returns>
         public ActionResult LogOff()
         {
+            // eat the cookie
             FormsAuthentication.SignOut();
             return RedirectToAction("LogOn");
         }

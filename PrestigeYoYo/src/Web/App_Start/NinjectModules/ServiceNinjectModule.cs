@@ -19,6 +19,7 @@ namespace Prestige.Web
         /// </summary>
         public override void Load()
         {
+            // bind service contracts to implementations
             Bind<IProductService>().To<ProductService>();
             Bind<IScheduleService>().To<ScheduleService>();
             Bind<IProductionEntryService>().To<ProductionEntryService>();

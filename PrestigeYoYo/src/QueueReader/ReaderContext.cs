@@ -9,16 +9,16 @@ namespace QueueReader
     using System.ComponentModel;
     using System.Configuration;
     using System.Data.Entity;
+    using System.Drawing;
     using System.Linq;
     using System.Messaging;
+    using System.Threading;
     using System.Windows.Forms;
 
     using Prestige.DB;
     using Prestige.DB.Models;
     using Prestige.Repositories;
     using Prestige.Services;
-    using System.Drawing;
-    using System.Threading;
 
     public class ReaderContext : ApplicationContext
     {
@@ -31,12 +31,14 @@ namespace QueueReader
             this.InitializeServices();
             this.InitializeIcon();
 
+            // connect to the message queue...
             this.Queue = new MessageQueue(
                         ConfigurationManager.AppSettings["QueueName"]);
             this.Queue.Formatter = new ActiveXMessageFormatter();
             this.Queue.MessageReadPropertyFilter.LookupId = true;
             this.Queue.ReceiveCompleted += msmq_ReceiveCompleted;
 
+            // start reading
             this.IsRunning = true;
             this.Queue.BeginReceive();
         }
@@ -46,12 +48,14 @@ namespace QueueReader
         /// </summary>
         public void InitializeServices()
         {
+            // set the database initializer
 #if DEBUG
             Database.SetInitializer(new DebugInitialization());
 #else
             Database.SetInitializer(new ReleaseInitialization());
 #endif
 
+            // set db context, repos, and services
             var dbContext = new PrestigeContext("Prestige");
             this.ProductionEntryService = new ProductionEntryService(
                             new ProductionEntryRepository(dbContext));
@@ -70,6 +74,7 @@ namespace QueueReader
         /// </summary>
         public void InitializeIcon()
         {
+            // initialize the icon & menu
             var container = new Container();
             this.Icon = new NotifyIcon(container);
             this.MenuStart = new MenuItem("Start", Start_Click);
@@ -180,6 +185,7 @@ namespace QueueReader
         /// </param>
         private void Start_Click(object sender, EventArgs e)
         {
+            // set menu stuff, display name, start running...
             this.MenuStart.Enabled = false;
             this.MenuStop.Enabled = true;
             this.Icon.Text = this.DisplayText + " - Running...";
@@ -196,6 +202,7 @@ namespace QueueReader
         /// </param>
         private void Stop_Click(object sender, EventArgs e)
         {
+            // stop the presses!
             this.MenuStart.Enabled = true;
             this.MenuStop.Enabled = false;
             this.Icon.Text = this.DisplayText + " - Stopped";
@@ -212,8 +219,13 @@ namespace QueueReader
         private void Close_Click(object sender, EventArgs e)
         {
             // wait a bit, to let any running queue reading finish...
-            this.IsRunning = false;
-            Thread.Sleep(1000);
+            if (this.IsRunning)
+            {
+                this.IsRunning = false;
+                Thread.Sleep(500);
+            }
+
+            // exit!
             this.ExitThread();
         }
 
@@ -232,21 +244,17 @@ namespace QueueReader
             var str = e.Message.Body.ToString();
             var split = str.Split(",".ToCharArray());
 
-            // WorkArea,
-            // 21f27817-f307-49f9-a826-5f8d772cdfdf,
-            // Line0,
-            // INSPECTION_1_SCRAP,
-            // INCONSISTENT_THICKNESS,
-            // 11/12/2012 1:17:35 PM
-
+            // parse out message pieces
             Guid id = Guid.Parse(split[1]);
             var timestamp = DateTime.Parse(split[5]);
             var line = split[2].Substring(4);
             var lineNumber = int.Parse(line);
 
+            // find an existing production entry if it exists
             var entry = this.ProductionEntryService.List().FirstOrDefault(
                             p => p.Id == id);
 
+            // create a new entry if it doesnt exist yet...
             if (entry == null)
             {
                 var schedule = this.ScheduleService.GetByTimestamp(timestamp);
@@ -260,18 +268,22 @@ namespace QueueReader
                 this.ProductionEntryService.Add(entry);
             }
 
-            var stage = new ProductionStage();
-            stage.WorkArea = split[0];
-            stage.TimeStamp = timestamp;
-            stage.LineNumber = lineNumber;
-            stage.ProductionEntry = entry;
+            // create a new stage
+            var stage = new ProductionStage()
+            {
+                WorkArea = split[0],
+                TimeStamp = timestamp,
+                LineNumber = lineNumber,
+                ProductionEntry = entry
+            };
 
+            // find the station the product is at
             var stationId = split[3];
             var station = this.StationService.List().FirstOrDefault(
                                             s => s.Identifier == stationId);
-
             stage.Station = station;
 
+            // find the flaw
             if (split[4].Length > 0)
             {
                 var flawId = split[4];
@@ -279,10 +291,12 @@ namespace QueueReader
                                             f => f.Identifier == flawId);
             }
 
+            // save the data!
             entry.Stages.Add(stage);
             this.ProductionEntryService.Update(entry);
             this.StageService.Add(stage);
 
+            // start listening for messages again, if we aren't paused...
             if (this.IsRunning)
             {
                 this.Queue.BeginReceive();

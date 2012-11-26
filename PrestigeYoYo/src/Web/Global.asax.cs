@@ -49,12 +49,14 @@ namespace Prestige
         /// </summary>
         protected override void OnApplicationStarted()
         {
+            // set the database initializer
 #if DEBUG
             Database.SetInitializer(new DebugInitialization());
 #else
             Database.SetInitializer(new ReleaseInitialization());
 #endif
 
+            // register routes
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
@@ -70,11 +72,11 @@ namespace Prestige
         public void Application_Error(object sender, EventArgs e)
         {
             var httpContext = ((MvcApplication)sender).Context;
-
             var currentRouteData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(httpContext));
             var currentController = " ";
             var currentAction = " ";
 
+            // extract current action and controller from current route data
             if (currentRouteData != null)
             {
                 if (currentRouteData.Values["controller"] != null && !String.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
@@ -88,24 +90,30 @@ namespace Prestige
                 }
             }
 
+            // retrieve the error
             var ex = Server.GetLastError();
 
+            // initialize an error controller to handle the exception
             var controller = new ErrorController();
             var routeData = new RouteData();
-            var action = "Index";
 
+            // extract the error code and message
             var errorCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
             var message = ex is HttpException ? ((HttpException)ex).Message : null;
 
+            // clean up the exception
             httpContext.ClearError();
             httpContext.Response.Clear();
             httpContext.Response.StatusCode = errorCode;
             httpContext.Response.TrySkipIisCustomErrors = true;
+
+            // set the route data
             routeData.Values["controller"] = "Error";
-            routeData.Values["action"] = action;
+            routeData.Values["action"] = "Index";
             routeData.Values["code"] = errorCode;
             routeData.Values["message"] = message;
 
+            // reroute to the error controller
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
             ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
         }
@@ -118,9 +126,13 @@ namespace Prestige
         /// </returns>
         protected override IKernel CreateKernel()
         {
+            // load a Ninject kernel
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
+
+            // inject into the roles provider
             kernel.Inject(Roles.Provider);
+
             return kernel;
         }
     }

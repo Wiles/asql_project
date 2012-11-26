@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using Prestige.DB.Models;
-using Prestige.ViewModels;
-using System.Text;
+﻿///
+///
+///
 
 namespace Prestige.Web
 {
+    using System.Linq;
+    using AutoMapper;
+    using Prestige.DB.Models;
+    using Prestige.ViewModels;
+
     public class ViewModelMappings
     {
+        /// <summary>
+        /// Initializes ViewModel-oriented object mappings
+        /// </summary>
         public static void Map()
         {
             Mapper.CreateMap<Product, ProductListModel>()
