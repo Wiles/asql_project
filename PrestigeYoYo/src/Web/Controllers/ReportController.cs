@@ -8,16 +8,16 @@ namespace Prestige.Controllers
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Text;
     using System.Web.Mvc;
     using AutoMapper;
     using DotNet.Highcharts;
     using DotNet.Highcharts.Enums;
     using DotNet.Highcharts.Helpers;
     using DotNet.Highcharts.Options;
+    using Prestige.DB.Models;
     using Prestige.Services;
     using Prestige.ViewModels;
-    using System.Text;
-using Prestige.DB.Models;
 
     /// <summary>
     /// Class for managing Home requests.
@@ -191,7 +191,7 @@ using Prestige.DB.Models;
                 if (model.Line.HasValue)
                 {
                     var i = model.Line.Value;
-                    list.Where(s => s.LineNumber == i);
+                    list = list.Where(s => s.LineNumber == i);
                 }
             }
 
@@ -227,17 +227,14 @@ using Prestige.DB.Models;
         [ReportMethod("Final Yield")]
         public ActionResult FinalYield(GenerateReportModel model)
         {
-            var list = EntryService.List()
-                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null && s.ProductFlaw.Decision != "Rework"))
-                    .SelectMany(e => e.Stages);
-
-            var results = this.FilterStages(list, model)
+            var list = this.FilterStages(this.ProductionStageService.List(), model)
+                .Where(s => s.Station.StationType == "Scrap" || s.Station.StationType == "Complete")
                     .GroupBy(e => e.Station)
                     .OrderBy(g => g.Count())
-                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
+                    .Select(g => new { Name = g.Key.Description, Y = g.Count() })
                     .ToArray();
 
-            return PartialView("FinalYield", ChartHelper.PieChart("Final Yields", "Station Final Yields", results));
+            return PartialView("FinalYield", ChartHelper.PieChart("Final Yields", "Station Final Yields", list));
         }
 
         /// <summary>

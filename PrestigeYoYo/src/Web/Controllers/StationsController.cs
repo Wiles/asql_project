@@ -100,7 +100,7 @@ namespace Prestige.Controllers
                        select new
                        {
                            Id = m.Guid,
-                           cell = new object[] { m.Guid, m.Description, m.Identifier }
+                           cell = new object[] { m.Guid, m.Description, m.Identifier, m.StationType }
                        };
 
             var data = new
@@ -124,7 +124,8 @@ namespace Prestige.Controllers
         public ActionResult Edit(
                 string guid,
                 string description,
-                string identifier)
+                string identifier,
+                string stationType)
         {
             Guid id = Guid.Empty;
 
@@ -140,6 +141,7 @@ namespace Prestige.Controllers
             {
                 station.Description = description;
                 station.Identifier = identifier;
+                station.StationType = stationType;
                 this.StationService.Update(station);
             }
 
@@ -153,12 +155,13 @@ namespace Prestige.Controllers
         /// <param name="identifier">The identifier.</param>
         /// <returns>Empty result.</returns>
         [HttpPost]
-        public ActionResult Add(string description, string identifier)
+        public ActionResult Add(string description, string identifier, string stationType)
         {
             var station = new ProductionStation()
             {
                 Description = description,
-                Identifier = identifier
+                Identifier = identifier,
+                StationType = stationType
             };
 
             this.StationService.Add(station);

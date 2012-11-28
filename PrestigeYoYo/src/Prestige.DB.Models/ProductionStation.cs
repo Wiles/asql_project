@@ -35,5 +35,13 @@ namespace Prestige.DB.Models
         /// The identifier.
         /// </value>
         public string Identifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the station.
+        /// </summary>
+        /// <value>
+        /// The type of the station.
+        /// </value>
+        public string StationType { get; set; }
     }
 }

@@ -15,7 +15,7 @@
             editurl: "@Url.Action("Edit", "Stations")",
 
             // Specify the column names
-            colNames: ["Guid", "Description", "Identifier"],
+            colNames: ["Guid", "Description", "Identifier", "Station Type"],
 
             // Configure the columns
             colModel:
@@ -39,6 +39,14 @@
                 align: "left",
                 editable: true,
                 editrules: { required: true }
+            },
+            {
+                name: "StationType",
+                index: "StationType",
+                align: "left",
+                editable: true,
+                edittype: "select",
+                editoptions: { value: "Production:Production;Queue:Queue;Inspection:Inspection;Rework:Rework;Scrap:Scrap;Complete:Complete" }
             }
             ],
 
