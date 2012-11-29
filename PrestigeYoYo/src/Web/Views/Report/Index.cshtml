@@ -111,78 +111,84 @@ and boom, its generates
     }
     #fieldsContainer
     {
-        border-right: 1px solid black;
+        vertical-align:top;
+    }
+    #fieldsContainer #panel
+    {
         padding:30px 30px 30px 0px;
+        border-right: 1px solid black;
     }
 </style>
 
 <table>
 <tr>
 <td id="fieldsContainer">
-    <div>
-        <label for="reportType">Report Type:</label>
-    </div>
-    <div>
-        <select name="reportType" id="reportType" class="field-value">
-        @foreach (var report in Model.ReportTypes)
-        {
-            <option value="@report.Id">@report.Name</option>
-        }
-        </select>
-    </div>
+    <div id="panel">
+        <div>
+            <label for="reportType">Report Type:</label>
+        </div>
+        <div>
+            <select name="reportType" id="reportType" class="field-value">
+            @foreach (var report in Model.ReportTypes)
+            {
+                <option value="@report.Id">@report.Name</option>
+            }
+            </select>
+        </div>
 
-    <div>
-        <label for="StartDate">Start Date:</label>
-    </div>
-    <div>
-        <input name="StartDate" id="startDate" type="text" readonly="readonly" class="datetime-picker field-value" />
-    </div>
+        <div>
+            <label for="StartDate">Start Date:</label>
+        </div>
+        <div>
+            <input name="StartDate" id="startDate" type="text" readonly="readonly" class="datetime-picker field-value" />
+        </div>
 
-    <div>
-        <label for="EndDate">End Date:</label>
-    </div>
-    <div>
-        <input name="EndDate" id="endDate" type="text" readonly="readonly" class="datetime-picker field-value" />
-    </div>
+        <div>
+            <label for="EndDate">End Date:</label>
+        </div>
+        <div>
+            <input name="EndDate" id="endDate" type="text" readonly="readonly" class="datetime-picker field-value" />
+        </div>
 
-    <div>
-        <label for="product">Product:</label>
-    </div>
-    <div>
-        <select name="product" id="product" class="field-value">
-            <option value="">All</option>
-        @foreach (var product in Model.Products)
-        {
-            <option value="@product.Id.ToString()">@product.Description - @product.Colour (@product.SKU)</option>
-        }
-        </select>
-    </div>
+        <div>
+            <label for="product">Product:</label>
+        </div>
+        <div>
+            <select name="product" id="product" class="field-value">
+                <option value="">All</option>
+            @foreach (var product in Model.Products)
+            {
+                <option value="@product.Id.ToString()">@product.Description - @product.Colour (@product.SKU)</option>
+            }
+            </select>
+        </div>
 
-    <div>
-        <label for="workArea">Work Area:</label>
-    </div>
-    <div>
-        <select name="workArea" id="workArea" class="field-value">
-            <option value="">All</option>
-        @foreach (var area in Model.WorkAreas)
-        {
-            <option value="@area">@area</option>
-        }
-        </select>
-    </div>
+        <div>
+            <label for="workArea">Work Area:</label>
+        </div>
+        <div>
+            <select name="workArea" id="workArea" class="field-value">
+                <option value="">All</option>
+            @foreach (var area in Model.WorkAreas)
+            {
+                <option value="@area">@area</option>
+            }
+            </select>
+        </div>
 
-    <div>
-        <label for="line">Line:</label>
-    </div>
-    <div>
-        <select name="line" id="line" class="field-value">
-            <option value="">All</option>
-        </select>
-    </div>
+        <div>
+            <label for="line">Line:</label>
+        </div>
+        <div>
+            <select name="line" id="line" class="field-value">
+                <option value="">All</option>
+            </select>
+        </div>
 
-    <div>
-        <button id="btnGenerate">Generate</button>
-        <img id="loader" alt="Loading..." src="@Url.Content("~/Content/images/ajax-loader.gif")" style="vertical-align:bottom;display:none;" />
+        <div>
+            <button id="btnGenerate">Generate</button>
+            <img id="loader" alt="Loading..." src="@Url.Content("~/Content/images/ajax-loader.gif")" style="vertical-align:bottom;display:none;" />
+        </div>
     </div>
 </td>
 

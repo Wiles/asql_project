@@ -124,6 +124,7 @@
     <Compile Include="Providers\UserServiceFactory.cs" />
     <Compile Include="Ext\UrlHelper.cs" />
     <Compile Include="ViewModels\DefectListModel.cs" />
+    <Compile Include="ViewModels\FirstYieldModel.cs" />
     <Compile Include="ViewModels\GenerateReportModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavButtonModel.cs" />

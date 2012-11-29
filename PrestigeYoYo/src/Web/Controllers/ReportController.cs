@@ -18,6 +18,7 @@ namespace Prestige.Controllers
     using Prestige.DB.Models;
     using Prestige.Services;
     using Prestige.ViewModels;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Class for managing Home requests.
@@ -34,7 +35,7 @@ namespace Prestige.Controllers
                 IMappingEngine mapper,
                 IProductService productService,
                 IProductionStageService productionStageService,
-                IProductionEntryService entryService)
+                IProductionStationService stationService)
             : base(mapper)
         {
             if (productService == null)
@@ -45,14 +46,14 @@ namespace Prestige.Controllers
             {
                 throw new ArgumentNullException("productionStageService");
             }
-            else if (entryService == null)
+            else if (stationService == null)
             {
-                throw new ArgumentNullException("entryService");
+                throw new ArgumentNullException("stationService");
             }
 
             this.ProductService = productService;
             this.ProductionStageService = productionStageService;
-            this.EntryService = entryService;
+            this.StationService = stationService;
         }
 
         /// <summary>
@@ -72,12 +73,12 @@ namespace Prestige.Controllers
         private IProductionStageService ProductionStageService { get; set; }
 
         /// <summary>
-        /// Gets or sets the entry service.
+        /// Gets or sets the station service.
         /// </summary>
         /// <value>
-        /// The entry service.
+        /// The station service.
         /// </value>
-        private IProductionEntryService EntryService { get; set; }
+        private IProductionStationService StationService { get; set; }
 
         /// <summary>
         /// Gets a list of available report types.
@@ -207,17 +208,56 @@ namespace Prestige.Controllers
         [ReportMethod("First Yield")]
         public ActionResult FirstYield(GenerateReportModel model)
         {
-            var list = EntryService.List()
-                    .Where(e => !e.Stages.Any(s => s.ProductFlaw != null))
-                    .SelectMany(e => e.Stages);
+            var stations = this.StationService.List().Where(s => s.StationType == "Inspection").ToList();
+            var yieldModel = new FirstYieldModel();
+            yieldModel.Charts = new Collection<Highcharts>();
 
-            var results = this.FilterStages(list, model)
-                    .GroupBy(e => e.Station)
-                    .OrderBy(g => g.Count())
-                    .Select(g => new { Name = g.Key.Identifier, Y = g.Count() })
-                    .ToArray();
+            foreach (var station in stations.OrderBy(s => s.Identifier))
+            {
+                // inspection and related rework and scrap states
+                var inspection = station.Identifier;
+                var rework = inspection + "_REWORK";
+                var reject = inspection + "_SCRAP";
 
-            return PartialView("FirstYield", ChartHelper.PieChart("First Time Yields", "Station First Time Yields", results));
+                // linq to get the stages
+                var list = this.ProductionStageService.List()
+                               .Where(s => s.Station.Identifier == rework
+                                   || s.Station.Identifier == reject
+                                   || s.Station.Identifier == inspection)
+                               .GroupBy(s => s.Station)
+                               .OrderBy(g => g.Count())
+                               .Select(g => new { Name = (g.Key.StationType == "Inspection" ? "Passed" : g.Key.StationType), Y = g.Count() })
+                               .ToArray();
+
+                // get the total of "not first times"
+                var bad = list.Where(a => a.Name != "Passed").Sum(a => a.Y);
+
+                // we need to subract the number of
+                // not first times from the first times
+                var results = new List<object>();
+                foreach (var a in list)
+                {
+                    if (a.Name == "Passed")
+                    {
+                        results.Add(new { Name = a.Name, Y = a.Y - bad });
+                    }
+                    else
+                    {
+                        results.Add(a);
+                    }
+                }
+                
+                // build chart
+                var chart = ChartHelper.PieChart(
+                    string.Format("{0} First Time Yield", station.Description),
+                    "First Time Yield",
+                    results.ToArray(),
+                    station.Identifier);
+
+                yieldModel.Charts.Add(chart);
+            }
+
+            return PartialView("FirstYield", yieldModel);
         }
 
         /// <summary>
@@ -227,14 +267,15 @@ namespace Prestige.Controllers
         [ReportMethod("Final Yield")]
         public ActionResult FinalYield(GenerateReportModel model)
         {
+            // linq to get the final yeild of good, bad, and ugly
             var list = this.FilterStages(this.ProductionStageService.List(), model)
                 .Where(s => s.Station.StationType == "Scrap" || s.Station.StationType == "Complete")
-                    .GroupBy(e => e.Station)
-                    .OrderBy(g => g.Count())
-                    .Select(g => new { Name = g.Key.Description, Y = g.Count() })
-                    .ToArray();
+                .GroupBy(e => e.Station)
+                .OrderBy(g => g.Count())
+                .Select(g => new { Name = g.Key.Description, Y = g.Count() })
+                .ToArray();
 
-            return PartialView("FinalYield", ChartHelper.PieChart("Final Yields", "Station Final Yields", list));
+            return PartialView("FinalYield", ChartHelper.PieChart("Final Yields", "Station Final Yields", list, "final"));
         }
 
         /// <summary>
@@ -244,17 +285,18 @@ namespace Prestige.Controllers
         [ReportMethod("Defect Occurrence")]
         public ActionResult DefectCategories(GenerateReportModel model)
         {
-            var list = this.ProductionStageService.List();
-            
-            var defectCategories = this.FilterStages(list, model)
+            // linq to get defects by occurrence type
+            var defectCategories = this.FilterStages(this.ProductionStageService.List(), model)
                 .Where(s => s.ProductFlaw != null)
                 .GroupBy(s => s.ProductFlaw)
                 .OrderByDescending(g => g.Count())
                 .Select(g => new { Name = g.Key.Reason, Count = g.Count() })
                 .ToArray();
 
+            // get the bar values
             var barValues = defectCategories.Select(d => d.Count);
 
+            // get the line values
             var linesValues = new List<int>();
             foreach (var num in barValues)
             {
@@ -262,6 +304,7 @@ namespace Prestige.Controllers
                 linesValues.Add(next);
             }
 
+            // build the chart
             Highcharts chart = new Highcharts("chart")
            .InitChart(new Chart { ZoomType = ZoomTypes.Xy })
            .SetTitle(new Title { Text = "Defect Categories" })

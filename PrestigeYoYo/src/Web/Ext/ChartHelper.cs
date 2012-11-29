@@ -23,9 +23,9 @@ namespace Prestige
         /// <param name="axisName">Name of the axis.</param>
         /// <param name="results">The results.</param>
         /// <returns>A chart object.</returns>
-        public static Highcharts PieChart(string chartName, string axisName, object[] results)
+        public static Highcharts PieChart(string chartName, string axisName, object[] results, string id)
         {
-            Highcharts chart = new Highcharts("chart")
+            Highcharts chart = new Highcharts(id)
                 .InitChart(new Chart { PlotShadow = false })
                 .SetTitle(new Title { Text = chartName })
                 .SetTooltip(new Tooltip { Formatter = "function() { return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(2) +' %'; }" })
