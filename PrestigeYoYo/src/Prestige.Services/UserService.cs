@@ -15,12 +15,15 @@ using System.Collections.Generic;
     public class UserService : IUserService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProductService"/> class.
+        /// Initializes a new instance of the <see cref="UserService" /> class.
         /// </summary>
-        /// <param name="repository">The repository.</param>
+        /// <param name="userRepository">The user repository.</param>
+        /// <param name="roleRepository">The role repository.</param>
+        /// <param name="encryptor">The encryptor.</param>
         public UserService(
                 IUserRepository userRepository,
-                IRoleRepository roleRepository)
+                IRoleRepository roleRepository,
+                IEncryptor encryptor)
         {
             if (userRepository == null)
             {
@@ -30,9 +33,14 @@ using System.Collections.Generic;
             {
                 throw new ArgumentNullException("roleRepository");
             }
+            else if (encryptor == null)
+            {
+                throw new ArgumentNullException("encryptor");
+            }
 
             this.UserRepository = userRepository;
             this.RoleRepository = roleRepository;
+            this.Encryptor = encryptor;
         }
 
         /// <summary>
@@ -52,13 +60,21 @@ using System.Collections.Generic;
         private IRoleRepository RoleRepository { get; set; }
 
         /// <summary>
+        /// Gets or sets the encryptor.
+        /// </summary>
+        /// <value>
+        /// The encryptor.
+        /// </value>
+        private IEncryptor Encryptor { get; set; }
+
+        /// <summary>
         /// Adds the specified user.
         /// </summary>
         /// <param name="user">The user.</param>
         public void Add(User user)
         {
             user.UserName = user.UserName.ToLower();
-            user.Password = GetHash(user.Password);
+            user.Password = this.Encryptor.GetHash(user.Password);
             this.UserRepository.Add(user);
             this.UserRepository.SaveChanges();
         }
@@ -73,7 +89,7 @@ using System.Collections.Generic;
             var user = this.UserRepository.FirstOrDefault(u => u.Id == id);
             if (user != null)
             {
-                user.Password = GetHash(password);
+                user.Password = this.Encryptor.GetHash(password);
                 this.UserRepository.SaveChanges();
             }
         }
@@ -132,7 +148,7 @@ using System.Collections.Generic;
             var user = this.UserRepository.FirstOrDefault(u => u.UserName == low);
             if (user != null)
             {
-                var hash = GetHash(password);
+                var hash = this.Encryptor.GetHash(password);
                 return user.Password == hash;
             }
 
@@ -172,26 +188,6 @@ using System.Collections.Generic;
         {
             // hack to overload the expression...
             return this.UserRepository.Where(u => true);
-        }
-
-        /// <summary>
-        /// Gets the hash of a string.
-        /// </summary>
-        /// <param name="str">The string.</param>
-        /// <returns>The hash.</returns>
-        private static string GetHash(string str)
-        {
-            var md5 = MD5.Create();
-            var bytes = Encoding.ASCII.GetBytes(str);
-            var hash = md5.ComputeHash(bytes);
-
-            var sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("x2"));
-            }
-
-            return sb.ToString();
         }
     }
 }

@@ -208,6 +208,7 @@ namespace Prestige.Controllers
         [ReportMethod("First Yield")]
         public ActionResult FirstYield(GenerateReportModel model)
         {
+            // get list of stations
             var stations = this.StationService.List().Where(s => s.StationType == "Inspection").ToList();
             var yieldModel = new FirstYieldModel();
             yieldModel.Charts = new Collection<Highcharts>();
@@ -220,7 +221,7 @@ namespace Prestige.Controllers
                 var reject = inspection + "_SCRAP";
 
                 // linq to get the stages
-                var list = this.ProductionStageService.List()
+                var list = this.FilterStages(this.ProductionStageService.List(), model)
                                .Where(s => s.Station.Identifier == rework
                                    || s.Station.Identifier == reject
                                    || s.Station.Identifier == inspection)

@@ -27,6 +27,7 @@ namespace Prestige.Web
             Bind<IProductionStationService>().To<ProductionStationService>();
             Bind<IProductionStageService>().To<ProductionStageService>();
 
+            Bind<IEncryptor>().To<Encryptor>();
             Bind<IUserService>().To<UserService>().InRequestScope();
             Bind<IUserServiceFactory>().To<UserServiceFactory>().InSingletonScope();
         }
