@@ -1,5 +1,5 @@
-﻿/// ProductFlawRepository.cs
-/// Thomas Kempton 2012
+﻿/// Product Flaw Repository
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories

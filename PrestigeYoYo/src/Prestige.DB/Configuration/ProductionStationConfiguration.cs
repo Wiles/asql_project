@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Production station table configuration
+/// Codeora 2012
 ///
 
 namespace Prestige.DB

@@ -1,5 +1,5 @@
-﻿/// ModelWithIdMod.cs
-/// Thomas Kempton 2012
+﻿/// Model with id module
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

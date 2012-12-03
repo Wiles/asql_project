@@ -1,5 +1,5 @@
-﻿/// DatabaseMod.cs
-/// Thomas Kempton 2012
+﻿/// Database trigger module base
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

@@ -1,5 +1,5 @@
-﻿/// ProductRepository.cs
-/// Thomas Kempton 2012
+﻿/// Product Repository
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories

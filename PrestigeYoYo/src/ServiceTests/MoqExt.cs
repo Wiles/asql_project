@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Moq extensions
+/// Codeora 2012
 ///
 
 namespace ServiceTests

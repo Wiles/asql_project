@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Extension methods to help with charting
+/// Codeora 2012
 ///
 
 namespace Prestige

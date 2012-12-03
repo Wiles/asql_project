@@ -24,3 +24,8 @@ just run it from VS2010...
 *double click solution file...*
 
 
+
+IF SOMETHING DOESN'T WORK ASK THIS GUY --> kempton.tom@gmail.com
+
+
+

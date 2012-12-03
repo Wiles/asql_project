@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// View model mappings
+/// Codeora 2012
 ///
 
 namespace Prestige.Web

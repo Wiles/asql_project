@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Model for configuring navigation buttons
+/// Codeora 2012
 ///
 
 namespace Prestige.ViewModels

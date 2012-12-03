@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Prestige.Services;
-using Ninject;
+﻿/// User service factory to facilitate proper injection
+/// of the user service into the role provider.
+/// Codeora 2012
+///
 
 namespace Prestige.Web.Providers
 {
+    using System;
+    using Ninject;
+    using Prestige.Services;
+
     public interface IUserServiceFactory
     {
         /// <summary>

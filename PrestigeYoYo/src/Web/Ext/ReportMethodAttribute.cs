@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Attribute for flagging a controller action as a report generation method
+/// Codeora 2012
 ///
 
 namespace Prestige

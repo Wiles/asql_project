@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿/// Queue reader program main line
+/// Codeora 2012
+///
 
 namespace QueueReader
 {
+    using System;
+    using System.Windows.Forms;
+
     static class Program
     {
         /// <summary>

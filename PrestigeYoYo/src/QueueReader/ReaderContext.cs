@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Queue reader application context
+/// Codeora 2012
 ///
 
 namespace QueueReader

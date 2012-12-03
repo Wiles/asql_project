@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Model for generating reports
+/// Codeora 2012
 ///
 
 namespace Prestige.ViewModels

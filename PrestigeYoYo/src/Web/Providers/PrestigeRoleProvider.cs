@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Custom role provider to verify user roles
+/// Codeora 2012
 ///
 
 namespace Prestige.Providers

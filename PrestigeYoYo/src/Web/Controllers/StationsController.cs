@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Production stations controller
+/// Codeora 2012
 ///
 
 namespace Prestige.Controllers

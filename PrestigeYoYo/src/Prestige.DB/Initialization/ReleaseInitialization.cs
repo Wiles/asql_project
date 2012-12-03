@@ -1,5 +1,5 @@
-﻿/// ReleaseInitialization.cs
-/// Thomas Kempton 2012
+﻿/// Release database initialization
+/// Codeora 2012
 ///
 
 namespace Prestige.DB

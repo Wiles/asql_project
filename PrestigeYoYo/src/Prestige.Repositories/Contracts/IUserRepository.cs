@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// User repository contract
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories

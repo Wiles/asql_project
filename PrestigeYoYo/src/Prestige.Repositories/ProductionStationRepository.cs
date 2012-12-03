@@ -1,5 +1,5 @@
-﻿/// ProductionStationRepository.cs
-/// Thomas Kempton 2012
+﻿/// Production Station Repository
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories

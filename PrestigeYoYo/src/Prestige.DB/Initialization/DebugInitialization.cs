@@ -1,5 +1,5 @@
-﻿/// DebugInitalization.cs
-/// Thomas Kempton 2012
+﻿/// Debug database initalization
+/// Codeora 2012
 ///
 
 namespace Prestige.DB

@@ -1,5 +1,5 @@
-﻿/// BaseContext.cs
-/// Thomas Kempton 2012
+﻿/// Base database context
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

@@ -1,5 +1,5 @@
-﻿/// IRecoverable.cs
-/// Thomas Kempton 2012
+﻿/// Soft-deletable entity interface
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

@@ -1,5 +1,5 @@
-﻿/// RepositoryBase.cs
-/// Thomas Kempton 2012
+﻿/// Repository base
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

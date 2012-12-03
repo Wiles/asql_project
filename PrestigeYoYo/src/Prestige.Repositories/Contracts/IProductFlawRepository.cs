@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Production flaw repository contract
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories

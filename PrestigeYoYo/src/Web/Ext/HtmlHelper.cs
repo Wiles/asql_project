@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Extension methods for the HtmlHelper
+/// Codeora 2012
 ///
 
 namespace Prestige

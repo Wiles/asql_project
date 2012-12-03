@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Repository ninject module
+/// Codeora 2012
 ///
 
 namespace Prestige.Web

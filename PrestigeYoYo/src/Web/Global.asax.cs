@@ -1,17 +1,22 @@
-﻿using System.Data.Entity;
-using System.Reflection;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
-using Ninject;
-using Ninject.Web.Common;
-using Prestige.DB;
-using System;
-using System.Web;
-using Prestige.Web.Controllers;
+﻿/// Web Application Initialization
+/// Codeora 2012
+///
 
 namespace Prestige
 {
+    using System;
+    using System.Data.Entity;
+    using System.Reflection;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using System.Web.Security;
+
+    using Ninject;
+    using Ninject.Web.Common;
+    using Prestige.DB;
+    using Prestige.Web.Controllers;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 

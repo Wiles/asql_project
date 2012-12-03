@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Extension methods to help with data grids
+/// Codeora 2012
 ///
 
 namespace Prestige

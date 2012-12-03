@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Model for report types
+/// Codeora 2012
 ///
 
 namespace Prestige.ViewModels

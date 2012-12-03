@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Model for viewing users in a grid
+/// Codeora 2012
 ///
 
 namespace Prestige.ViewModels

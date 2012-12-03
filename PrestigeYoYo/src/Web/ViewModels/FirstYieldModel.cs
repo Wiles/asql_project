@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Model for viewing a first yield report
+/// Codeora 2012
 ///
 
 namespace Prestige.ViewModels

@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Attribute for authorizing access
+/// Codeora 2012
 ///
 
 namespace Prestige

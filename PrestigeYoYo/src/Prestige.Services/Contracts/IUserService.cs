@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// User service contract
+/// Codeora 2012
 ///
 
 namespace Prestige.Services

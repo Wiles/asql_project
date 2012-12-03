@@ -1,4 +1,7 @@
-﻿
+﻿/// User service tests
+/// Codeora 2012
+///
+
 namespace ServiceTests
 {
     using System;

@@ -1,5 +1,5 @@
-﻿/// IModelBase.cs
-/// Thomas Kempton 2012
+﻿/// Model base
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

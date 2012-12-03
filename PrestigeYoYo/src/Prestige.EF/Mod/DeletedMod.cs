@@ -1,5 +1,5 @@
-﻿/// DeletedMod.cs
-/// Thomas Kempton 2012
+﻿/// Deleted database module
+/// Codeora 2012
 ///
 
 namespace Prestige.EF

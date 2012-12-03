@@ -1,5 +1,5 @@
-﻿/// PrestigeContext.cs
-/// Thomas Kempton 2012
+﻿/// Prestige database context
+/// Codeora 2012
 ///
 
 namespace Prestige.DB

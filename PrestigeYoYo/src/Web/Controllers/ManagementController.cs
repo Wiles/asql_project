@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Database management controller
+/// Codeora 2012
 ///
 
 namespace Prestige.Web.Controllers

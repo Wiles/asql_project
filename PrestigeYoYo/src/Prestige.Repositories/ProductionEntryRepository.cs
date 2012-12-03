@@ -1,5 +1,5 @@
-﻿///
-///
+﻿/// Production entry repository
+/// Codeora 2012
 ///
 
 namespace Prestige.Repositories
