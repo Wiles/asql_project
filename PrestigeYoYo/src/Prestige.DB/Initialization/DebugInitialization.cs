@@ -4,12 +4,12 @@
 
 namespace Prestige.DB
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data.Entity;
-    using Prestige.DB.Models;
-    using System;
     using System.Linq;
+    using Prestige.DB.Models;
 
     /// <summary>
     /// Debug Database Initialization for Prestige.
