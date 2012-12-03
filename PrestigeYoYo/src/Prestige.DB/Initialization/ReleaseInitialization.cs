@@ -9,7 +9,7 @@ namespace Prestige.DB
     /// <summary>
     /// Release Database Initialization for Prestige.
     /// </summary>
-    class ReleaseInitialization : CreateDatabaseIfNotExists<PrestigeContext>
+    public class ReleaseInitialization : CreateDatabaseIfNotExists<PrestigeContext>
     {
     }
 }
